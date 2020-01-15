@@ -1,0 +1,455 @@
+
+
+.searchPage {
+  background-image: url('./assests/images/search-background.jpg');
+  padding: 340px;
+}
+
+.searchBar {
+  width: 130px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  background-image: url('./assests/images/search.png');
+  background-position: 10px 10px; 
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
+  width: 100%;
+  
+}
+
+.searchButton {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.searchButton:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+.searchButtonDiv{
+  text-align: center;
+}
+
+
+.header {
+  overflow: hidden;
+  background-color: #f1f1f1;
+  padding: 20px 10px;
+  border: outset;
+}
+
+.header img {
+  width: 100px;
+}
+.header a {
+  color: black;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px; 
+  line-height: 25px;
+  border-radius: 4px;
+}
+
+.header a.logo {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+
+.header-right {
+  float: right;
+  width: 800px;
+}
+
+@media screen and (max-width: 500px) {
+  .header a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  
+  .header-right {
+    float: none;
+  }
+}
+
+.Logo{
+  height: 110px;
+  width: 190px;
+  background-repeat: no-repeat;
+}
+
+.searchBar_logo{
+  width: 130px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 30px;
+  font-size: 16px;
+  background-color: white;
+  background-image: url('./assests/images/search.png');
+  background-position: 10px 10px; 
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
+  width: 100%;
+}
+
+.solutionCluster {
+  padding: 100px
+}
+
+.solutionSet{
+  width: 800px;
+    height: 100%;
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #d1cbcb;
+    margin-bottom: 25px;
+    display: inline-block;
+}
+
+.solutionTitle{
+   font-size: 25px;
+    font-family: monospace;
+    font: bold;
+    color: #2323c2;
+    transition-duration: 300ms;
+    transition: all 300ms;
+    display: inline-block;
+    
+}
+
+.solutionTitle:hover {
+  transform: translatex(5px);
+}
+
+.solutionDesc{
+  font-size: 19px;
+    font-family: initial;
+    color: #2a9541;
+}
+.solutionDescSec{
+  font-size: 19px;
+  font-family: initial;
+  color: #2a9541;
+}
+.solutionMore{
+  font-size: 15px;
+    font-family: initial;
+    color: #2323c2;
+}
+
+.feedCluster{
+  padding: 100px;
+}
+
+.feed{
+  width: 800px;
+    height: 100%;
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #d1cbcb;
+    margin-bottom: 25px;
+    display: inline-block;
+}
+
+.feedQuestion{
+  font-family: monospace;
+  font: bold;
+  font-weight: bold;
+  line-height: 3.3;
+  color: #333;
+  font-size: 23px;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.feedAddAnswer {
+  color: #3d3dfe;
+    font-weight: 500;
+    position: relative;
+    border-bottom: 1px solid #e2e2e2;
+    margin-bottom: 16px;
+    font-size: 18px;
+    padding-bottom: 5px;
+    text-decoration: underline;
+}
+
+.feedAddAnswerBox{
+  padding-bottom: inherit;
+  display: grid;
+  border-bottom: 1px solid #e2e2e2;
+  margin-bottom: 16px;
+}
+
+.feedAddAnswerBox input{
+  padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.feedAddAnswerBox textarea{
+  padding-bottom: 10px;
+    margin-bottom: 10px;
+    height: 100px;
+    border-radius: 5px;
+}
+.feedAddAnswerBox button{
+  width: 100px;
+  height: 30px;
+  font-size: 16px;
+  background-color: #c3beef;
+}
+
+.totalAnswer{
+  color: #333;
+  font-weight: 500;
+  position: relative;
+  border-bottom: 1px solid #e2e2e2;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  font-size: 18px;
+  padding-bottom: 15px;
+}
+
+.totalAnswerCount {
+  color: #333;
+  font-weight: 500;
+  font-size: 18px;
+
+}
+
+.userDetails{
+    display: -webkit-inline-box;
+    line-height: 1.2em;
+    margin-bottom: 2px;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+}
+
+.userlogo{
+ padding-right: 15px;
+}
+.userlogo img{
+  width: 34px;
+ }
+.userName{
+  padding-right: 15px;
+  font-size: 15px;
+}
+.userDesignation{
+  padding-right: 15px;
+  font-size: 15px;
+}
+.userPostDate{
+  font-size: 13px;
+  padding-right: 15px;
+  color: inherit;
+  color: #949494;
+  padding-left: 48px;
+  padding-bottom: 10px;
+}
+
+.feedAnswer{
+  border: outset;
+  padding: 48px;
+
+}
+.feedAnswerBefore{
+  background: #f1f1f1;
+}
+.feedAnswerAfter{
+  background: #f1f1f1;
+}
+.feedAnswerMain{
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.feedDetails{
+  display: -webkit-inline-box;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.upvote{
+  display: -webkit-inline-box;
+  padding-right: 15px;
+}
+
+.upvoteLogo{
+  padding-right: 5px;
+}
+.upvoteCount{
+  padding-right: 5px;
+}
+
+.upvoteTitle{
+  padding-right: 5px;
+}
+
+.upvoteLogo img{
+  width: 20px;
+}
+
+.like{
+  display: -webkit-inline-box;
+  padding-right: 10px;
+}
+
+.likeLogo{
+  padding-right: 5px;
+}
+.likeLogo img{
+  width: 20px;
+}
+.likeCount{
+  padding-right: 5px;
+}
+
+.likeTitle{
+  padding-right: 5px;
+}
+
+.addComment{
+  background: gainsboro;
+  padding: 20px;
+  display: flex;
+}
+
+.addComment button{
+  width: 10%;
+    border-radius: 15px;
+    background-color: #95aaf6;
+    font-size: 15px;
+}
+.commentBar{
+  width: 130px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 40px;
+  font-size: 13px;
+  padding: 11px 18px 12px 16px;
+  width: 100%;
+}
+
+.comments{
+  border: inherit;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding: 20px;
+}
+
+.commentSet{
+  border-radius: 30px;
+  border: groove;
+  padding: 15px;
+  margin-bottom: 5px;
+}
+
+.commentUserDetails{
+  font-size: 13px;
+  padding-bottom: 10px;
+  display: -webkit-inline-flex;
+}
+
+.commentLike{
+  padding-top: 10px;
+  display: -webkit-inline-flex;
+}
+
+.commentDesc{
+  background: #edeeef;
+  padding: 10px;
+}
+
+.commentLikeLogo img{
+  width: 20px;
+}
+
+.commentLikeLogo{
+ padding-right: 5px;
+}
+.commentLikeCount{
+  padding-right: 5px;
+}
+.commentLikeTitle{
+  padding-right: 5px;
+}
+
+.commentUserLogo{
+  padding-right: 10px;
+}
+.commentUserLogo img {
+  width: 30px;
+  
+}
+
+.answerCluster{
+    border-block-end: inherit;
+    margin-bottom: 30px
+}
+
+.questionForm{
+    width: 50%;
+    height: 50%;
+    margin: 1% 5% 5% 23%;
+    background-color: #e8eae6;
+}
+
+.quesFormHeader{
+  text-align: center;
+  font-size: 30px;
+    padding: 3%;
+}
+
+.quesRow{
+  font-size: 20px;
+    padding: 15px;
+    margin-bottom: 5px;
+    display: grid;
+}
+
+.quesRow label {
+  margin-bottom: 10px;
+}
+
+.quesRow input {
+    height: 45px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.quesRow button {
+  background-color: #77a679; /* Green */
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.quesRow button:hover {
+  background-color: #4CAF50;
+  color: white;
+}
