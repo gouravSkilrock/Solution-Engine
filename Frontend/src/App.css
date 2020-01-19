@@ -76,6 +76,12 @@
   width: 800px;
 }
 
+.answer-header-right {
+  float: left;
+  width: 843px;
+  margin: 25px 1px 1px 100px
+}
+
 @media screen and (max-width: 500px) {
   .header a {
     float: none;
@@ -432,6 +438,14 @@
     border: 2px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
+}
+
+.quesRow select {
+  height: 45px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
 }
 
 .quesRow button {

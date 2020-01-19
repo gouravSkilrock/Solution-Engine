@@ -5,10 +5,12 @@ import Header from '../Header/header';
 
 class QuestionList extends React.Component {
 
+
+
         render() {
             return  (
                  <div>
-                     <Header />
+                     <Header isSearchBarRequired={false} />
                      <SolutionCluster/>
                  </div>
              );
@@ -23,30 +25,44 @@ class SolutionCluster extends React.Component {
         this.state = {
             searchResult:''
         }
-
+        
     }
     componentWillMount(){
+        console.log(" componentWillMount");
         this.fetchData();
     }
     fetchData = async () => {
-        fetch('http://localhost:3030/api/v1/nodes/engine/search')
+        await fetch('http://localhost:3030/api/v1/nodes/engine/search')
             .then(response => response.json())
-            .then(json => this.setState({ searchResult:json}))
+            .then(json => this.setState({ searchResult:json})) 
     };
 
+    async filterQuestionList(event){
+        await fetch('http://localhost:3030/api/v1/nodes/engine/search?name='+event.target.value)
+            .then(response => response.json())
+            .then(json => this.setState({ searchResult:json}))
+    }
+
     render() {
-        console.log(this.state.searchResult);
         let data = this.state.searchResult.result;
         let SolutionSetData = [];
         return (
-            <div className="solutionCluster">
+            <div>
+                <div className="answer-header-right" onChange={this.filterQuestionList.bind(this)}>
+                            <input className="searchBar_logo" type="text" name="search" placeholder="Search..." />
+                </div>
+
+                <div className="solutionCluster">
                 {data?data.forEach(element => {
                     SolutionSetData.push(<SolutionSet innerData={element} />) 
-                }):null}    
-            {SolutionSetData}
+                }):"No result found!"}    
+                {SolutionSetData}
 
             </div>
 
+
+            </div>
+            
             
         );
     }
@@ -62,10 +78,11 @@ class SolutionSet extends React.Component {
 
     }
     render() {
+        console.log("Inner Data -",this.props);
         return (
             <div className="solutionSet">
-                        <Link to={`/detailedSolution/${this.state.innerData._id}`}>
-                            <div className="solutionTitle">{this.state.innerData.question}</div>
+                        <Link to={`/detailedSolution/${this.props.innerData._id}`}>
+                            <div className="solutionTitle">{this.props.innerData.question}</div>
                         </Link>
                     </div>
         );

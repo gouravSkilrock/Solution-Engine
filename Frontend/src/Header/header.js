@@ -5,7 +5,13 @@ import {Link } from "react-router-dom";
 
 class Header extends React.Component {
 
+    constructor(props){
+        super(props);
+        this.state = props;
+    }
+
     render() {
+        console.log(this.state);
         return (
 
             <div className="header">
@@ -14,7 +20,7 @@ class Header extends React.Component {
                 </Link>
                 <a href="/" className="logo">Solution Engine</a>
                 <div className="header-right">
-                    <input className="searchBar_logo" type="text" name="search" placeholder="Search..." />
+                   {this.state.isSearchBarRequired?<input className="searchBar_logo" type="text" name="search" placeholder="Search..." />:null} 
                 </div>
             </div>
 

@@ -6,7 +6,8 @@ const { Schema } = mongoose;
 const CommentSchema = new Schema(
     {
         title:{ type: String },
-        liked:{ type: Number}
+        liked:{ type: Number},
+        userCommentInfo:{ type: Schema.Types.ObjectId, ref: 'UserInfo'}
     },
     {
         strict: false,

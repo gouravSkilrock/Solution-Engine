@@ -4,6 +4,7 @@ import {Link } from "react-router-dom";
 import Header from '../Header/header';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Config from '../Config/config';
 
 
 class AddQuestion extends React.Component {
@@ -28,7 +29,9 @@ class Question extends React.Component {
             question:'',
             beforeAnsDesc:'',
             afterAnsDesc:'',
-            solution:''
+            solution:'',
+            username:'',
+            designation:''
         }
         this.showAnswerWindow = this.showAnswerWindow.bind(this);
         this.submitQuestion = this.submitQuestion.bind(this);
@@ -38,6 +41,7 @@ class Question extends React.Component {
         let payload = {};
         let answerArr = [];
         let answerJson = {};
+        let userJson = {};
         if(this.state.question === '' || this.state.question === undefined ){
            return toast.error("Question field can't be null!");
         }else{
@@ -46,11 +50,27 @@ class Question extends React.Component {
 
         if(this.state.solution!='' || this.state.solution === undefined ){
             answerJson.solution = this.state.solution;
-            answerJson.beforeAnsDesc =  this.state.beforeAnsDesc;
-            answerJson.afterAnsDesc =  this.state.afterAnsDesc;
-            answerArr.push(answerJson);
-            payload.answer = answerArr;
         }
+        if(this.state.beforeAnsDesc!='' || this.state.beforeAnsDesc === undefined ){
+            answerJson.beforeAnsDesc =  this.state.beforeAnsDesc;
+        }
+        if(this.state.afterAnsDesc!='' || this.state.afterAnsDesc === undefined ){
+            answerJson.afterAnsDesc =  this.state.afterAnsDesc;
+        }
+        if(this.state.username!='' || this.state.username === undefined ){
+            userJson.username =  this.state.username;
+        }else{
+            userJson.username =  "Unknown User";
+        }
+        if(this.state.designation!='' || this.state.designation !== undefined || this.state.designation === 'Blank' ){
+            userJson.designation =  this.state.designation;
+        }else{
+            userJson.designation =  "Unknown Designation";
+        }
+        answerJson['userInfo']=userJson;
+        answerArr.push(answerJson);
+        payload.answer = answerArr;
+
         console.log("Final payload",payload);
 
         this.addQuestionToDatabase(payload);
@@ -62,14 +82,16 @@ class Question extends React.Component {
             body: JSON.stringify(payload)
         });
         const json = await response.json();
-        if (json.result._id) {
+        if (json.result && json.result._id) {
             toast.success(" Question Added successfully!");
             this.setState({
                 showAnswertab: false,
                 question: '',
                 beforeAnsDesc: '',
                 afterAnsDesc: '',
-                solution: ''
+                solution: '',
+                username:'',
+                designation:''
             });
         } else {
             toast.error("Failed to add question!");
@@ -104,8 +126,22 @@ class Question extends React.Component {
             beforeAnsDesc:e.target.value
         });
     }
+
+    handleUsername(e){
+        this.setState({
+            username:e.target.value
+        });
+    }
+    
+    handleDesignation(e){
+        this.setState({
+            designation:e.target.value
+        });
+    }
+    
     
     render() {
+        let optionData=[];
         return  (
              <div className="questionForm">
                  <div className="quesFormHeader"> Add Question </div>
@@ -132,10 +168,29 @@ class Question extends React.Component {
                     <label>After Solution Description</label>
                     <input type="text" id="afterAnsDesc" className="afterAnsDesc" onChange={this.handleAfterAnsDesc.bind(this)} placeholder="Enter your..."/>
                  </div>
-
-
+                 
+                 <div className="quesRow" >
+                    <label>Enter your Name</label>
+                    <input type="text" id="username" className="username" onChange={this.handleUsername.bind(this)} placeholder="Enter your Name..."/>
+                   
+                 </div>
+                 
+                 <div className="quesRow" >  
+                      <label>Your Designation</label>
+                      <select onChange={this.handleDesignation.bind(this)}>
+                        {optionData.push(<option value="Blank">--Please select--</option>)}
+                        {Config.designation.forEach(element => {
+                         optionData.push(<option value={element}>{element}</option>)
+                        })}
+                        {optionData}
+                    </select>
+                 </div>
+                
                  </div>
                  :null}
+
+                 
+                 
                  
                  <div className="quesRow" >
                     <button  onClick={this.submitQuestion} className="submitQuestion">Submit</button>

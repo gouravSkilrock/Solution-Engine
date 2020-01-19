@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import Logo from '../assests/images/SolutionEngine_Logo-1.jpg';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Header from '../Header/header';
 
 class DetailedSolution extends React.Component {
 
@@ -19,7 +20,11 @@ class DetailedSolution extends React.Component {
             newBeforeAns:'',
             newSolution:'',
             newAfterAns:'',
-            newComment:''
+            newComment:'',
+            newUserCommentInfo : {
+                username:'',
+                designation:''
+            }
         }
     }
 
@@ -35,7 +40,7 @@ class DetailedSolution extends React.Component {
         console.log(this.state.resultSet);
         return (
             <div>
-                <Header />
+                <Header isSearchBarRequired={"false"}/>
                 {this.state.resultSet?<FeedCluster data = {this.state} />:null}
                 <ToastContainer position={toast.POSITION.TOP_RIGHT}/>
             </div>
@@ -174,7 +179,49 @@ class AnserCluster extends React.Component {
         this.state.questionData=props.questionData
 
         this.postComment =this.postComment.bind(this);
+        this.handleUpVote = this.handleUpVote.bind(this);
+        this.handleAnswerLike = this.handleAnswerLike.bind(this);
     }
+
+    async handleUpVote(){
+        let payload = {
+            aid:this.state._id
+        }
+
+        const response = await fetch('http://localhost:3030/api/v1/nodes/engine/upvoteAnswer', {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const json = await response.json();
+        if (json.result._id) {
+            toast.success("Upvoted");
+        } else {
+            toast.error("Failed to upvoted");
+        }
+    
+    }
+
+    
+    async handleAnswerLike(){
+        let payload = {
+            aid:this.state._id
+        }
+
+        const response = await fetch('http://localhost:3030/api/v1/nodes/engine/addlike', {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const json = await response.json();
+        if (json.result._id) {
+            toast.success("Liked");
+        } else {
+            toast.error("Failed to like");
+        }
+    
+    }
+
     handleChangeComment(e){
         this.setState({
             newComment:e.target.value
@@ -185,8 +232,22 @@ class AnserCluster extends React.Component {
         if(this.state.newComment==="" || this.state.newComment===undefined){
             return toast.error("Comments can't be null");
         }else{
+            
+            let userCommentInfo = {};
+            if(this.state.newUserCommentInfo.username!==''){
+                userCommentInfo.username = this.state.newUserCommentInfo.username
+            }else{
+                userCommentInfo.username = "Unknown User"
+            }
+            if(this.state.newUserCommentInfo.designation!=='' || this.state.newUserCommentInfo.designation!=='Blank'){
+                userCommentInfo.designation = this.state.newUserCommentInfo.designation
+            }else{
+                userCommentInfo.designation = "Unknown Designation"
+            }
+
             let commentPayload = {
-                title:this.state.newComment
+                'title':this.state.newComment,
+                'userCommentInfo':userCommentInfo
             }
             let payload = {
                 aid:this.state._id,
@@ -202,7 +263,11 @@ class AnserCluster extends React.Component {
             if (json.result._id) {
                 toast.success(" Comments Added successfully!");
                 this.setState({
-                    newComment:''
+                    newComment:'',
+                    newUserCommentInfo : {
+                        username:'',
+                        designation:''
+                    }
                 });
             } else {
                 toast.error("Failed to add comments!");
@@ -218,8 +283,8 @@ class AnserCluster extends React.Component {
             <div className="answerCluster">
                 <div className="userDetails">
                     <div className="userlogo"><img src={personLogo} alt="Person" /></div>
-                    <div className="userName">Gourav Panwar,</div>
-                    <div className="userDesignation">Software Engineer</div>
+                    <div className="userName">{this.state.userInfo?this.state.userInfo.username:"Unknown User"},</div>
+                    <div className="userDesignation">{this.state.userInfo?this.state.userInfo.designation:"Unknown Designation"}</div>
                 </div>
                 <div className="userPostDate">{this.state.created_at} </div>
                 <div className="feedAnswer">
@@ -229,13 +294,13 @@ class AnserCluster extends React.Component {
                 </div>
                 <div className="feedDetails">
                     <div className="upvote">
-                        <div className="upvoteLogo"><img src={upvoteLogo} alt="Upvote" /></div>
+                        <div className="upvoteLogo" onClick={this.handleUpVote}><img src={upvoteLogo} alt="Upvote" /></div>
                         <div className="upvoteCount">{this.state.upvote}</div>
                         <div className="upvoteTitle">Upvote</div>
                     </div>
                     <div className="like">
-                        <div className="likeLogo"><img src={likeLogo} alt="Like" /></div>
-                        <div className="likeCount">12</div>
+                        <div className="likeLogo" onClick={this.handleAnswerLike}><img src={likeLogo} alt="Like" /></div>
+                        <div className="likeCount">{this.state.like}</div>
                         <div className="likeTitle">Like</div>
                     </div>
                 </div>
@@ -262,7 +327,27 @@ class CommentSet extends React.Component {
         super(props)
         this.state=props.commentData;
         this.state.questionData=props.questionData;
+        this.handleCommentLike=this.handleCommentLike.bind(this);
     }
+
+    async handleCommentLike(){
+        let payload = {
+            cid:this.state._id
+        }
+
+        const response = await fetch('http://localhost:3030/api/v1/nodes/engine/addCommentLike', {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const json = await response.json();
+        if (json.result._id) {
+            toast.success("Comment liked");
+        } else {
+            toast.error("Failed to like");
+        }
+    }
+
 
     render() {
         return (
@@ -270,35 +355,17 @@ class CommentSet extends React.Component {
                         <div className="commentUserDetails">
 
                             <div className="commentUserLogo"><img src={personLogo} alt="Person" /></div>
-                            <div className="commentUserName">Deepak Panwar, Lead engineer</div>
+                        <div className="commentUserName">{this.state.userCommentInfo?this.state.userCommentInfo.username:"Unknown User"}, {this.state.userCommentInfo?this.state.userCommentInfo.designation:"Unknown Designation"}</div>
                         </div>
                         <div className="commentDesc">{this.state.title}</div>
                         <div className="commentLike">
-                            <div className="commentLikeLogo"><img src={likeLogo} alt="Like" /></div>
-                            <div className="commentLikeCount">3</div>
+                            <div className="commentLikeLogo" onClick={this.handleCommentLike}><img src={likeLogo} alt="Like" /></div>
+                            <div className="commentLikeCount">{this.state.liked}</div>
                             <div className="commentLikeTitle">Like</div>
                         </div>
                     </div>
         );
     }
-}
-
-class Header extends React.Component {
-
-    render() {
-        return (
-
-            <div className="header">
-                <Link to="/">
-                <img src={Logo} alt="SE_LOGO" />
-                </Link>
-                <a href="/" className="logo">Solution Engine</a>
-            </div>
-
-
-        );
-    }
-
 }
 
 export default DetailedSolution;

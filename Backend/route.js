@@ -13,6 +13,7 @@ Route.post(basePath+'/engine/addlike',app.addlike);
 Route.post(basePath+'/engine/upvoteAnswer',app.upvoteAnswer);
 Route.get(basePath+'/engine/search',app.search);
 Route.get(basePath+'/engine/getAllQuestionRelatedData/:id',app.getAllQuestionRelatedData);
+Route.post(basePath+'/engine/addCommentLike',app.addCommentLike);
 
 module.exports = Route;
 

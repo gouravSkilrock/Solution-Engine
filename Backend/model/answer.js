@@ -9,7 +9,9 @@ const AnswerSchema = new Schema(
         beforeAnsDesc:{ type: String},       
         afterAnsDesc:{ type: String},
         upvote:{ type: Number},
+        like:{ type: Number},
         comments: [{ type: Schema.Types.ObjectId, ref: 'Comment'}],
+        userInfo:{ type: Schema.Types.ObjectId, ref: 'UserInfo'}
     },
     {
         strict: false,
