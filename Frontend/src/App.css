@@ -1,8 +1,10 @@
 
 
 .searchPage {
-  background-image: url('./assests/images/search-background.jpg');
-  padding: 340px;
+  background-image: url('./assests/images/search-background-1.jpg');
+  padding: 220px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
 
 .searchBar {
@@ -341,6 +343,22 @@
     background-color: #95aaf6;
     font-size: 15px;
 }
+
+.popupUserInfo{
+  background: gainsboro;
+  padding: 20px;
+  display: flex;
+  width: 100%;
+}
+
+.popupUserInfo1 button{
+  width: 142%;
+  height: 92%;
+    border-radius: 15px;
+    background-color: #95aaf6;
+    font-size: 15px;
+}
+
 .commentBar{
   width: 130px;
   box-sizing: border-box;
@@ -349,6 +367,26 @@
   font-size: 13px;
   padding: 11px 18px 12px 16px;
   width: 100%;
+}
+
+.nameBar{
+  width: 65px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 40px;
+  font-size: 13px;
+  padding: 11px 18px 12px 16px;
+  width: 50%;
+}
+
+.desigBar{
+  width: 65px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 40px;
+  font-size: 13px;
+  padding: 11px 18px 12px 16px;
+  width: 50%;
 }
 
 .comments{

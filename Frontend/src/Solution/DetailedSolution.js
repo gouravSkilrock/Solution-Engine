@@ -8,6 +8,7 @@ import Logo from '../assests/images/SolutionEngine_Logo-1.jpg';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from '../Header/header';
+import Popup from "reactjs-popup";
 
 class DetailedSolution extends React.Component {
 
@@ -21,10 +22,8 @@ class DetailedSolution extends React.Component {
             newSolution:'',
             newAfterAns:'',
             newComment:'',
-            newUserCommentInfo : {
-                username:'',
-                designation:''
-            }
+            newUsername:'',
+            newDesignation:''
         }
     }
 
@@ -177,12 +176,22 @@ class AnserCluster extends React.Component {
         super(props)
         this.state=props.answerData
         this.state.questionData=props.questionData
+        this.state.open=false
 
         this.postComment =this.postComment.bind(this);
         this.handleUpVote = this.handleUpVote.bind(this);
         this.handleAnswerLike = this.handleAnswerLike.bind(this);
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
     }
 
+    openModal() {
+        this.setState({ open: true });
+    }
+    closeModal() {
+        this.setState({ open: false });
+    }
+     
     async handleUpVote(){
         let payload = {
             aid:this.state._id
@@ -228,19 +237,31 @@ class AnserCluster extends React.Component {
         });
     }
 
+    handleDesignation(e){
+        this.setState({
+                newDesignation:e.target.value,
+        });
+    }
+
+    handleName(e){
+        this.setState({
+                newUsername:e.target.value
+        });
+    }
+    
     async postComment(){
         if(this.state.newComment==="" || this.state.newComment===undefined){
             return toast.error("Comments can't be null");
         }else{
             
             let userCommentInfo = {};
-            if(this.state.newUserCommentInfo.username!==''){
-                userCommentInfo.username = this.state.newUserCommentInfo.username
+            if(this.state.newUsername && this.state.newUsername!==''){
+                userCommentInfo.username = this.state.newUsername
             }else{
                 userCommentInfo.username = "Unknown User"
             }
-            if(this.state.newUserCommentInfo.designation!=='' || this.state.newUserCommentInfo.designation!=='Blank'){
-                userCommentInfo.designation = this.state.newUserCommentInfo.designation
+            if(this.state.newDesignation && this.state.newDesignation!==''){
+                userCommentInfo.designation = this.state.newDesignation
             }else{
                 userCommentInfo.designation = "Unknown Designation"
             }
@@ -269,6 +290,7 @@ class AnserCluster extends React.Component {
                         designation:''
                     }
                 });
+                this.closeModal();
             } else {
                 toast.error("Failed to add comments!");
             }
@@ -306,7 +328,8 @@ class AnserCluster extends React.Component {
                 </div>
                 <div className="addComment">
                     <input onChange={this.handleChangeComment.bind(this)} className="commentBar" type="text" name="commentBar" placeholder="Add a comments..." />
-                    <button onClick={this.postComment} >Post</button>
+                    
+                    <button onClick={this.openModal} >Post</button>
                 </div>
                 <div className="comments">
                     {
@@ -316,6 +339,21 @@ class AnserCluster extends React.Component {
                     }
                     {commentData}
                 </div>
+                <Popup open={this.state.open} closeOnDocumentClick onClose={this.closeModal}>
+                    <div className="modal" style={{"display":"flex"}}>
+                        <div className="popupUserInfo">
+                        <a className="close" onClick={this.closeModal}>
+                            &times;
+                        </a>
+                        <input onChange={this.handleName.bind(this)} className="nameBar" type="text" name="nameBar" placeholder="Add a Name..." />
+                        <input onChange={this.handleDesignation.bind(this)} className="desigBar" type="text" name="desigBar" placeholder="Add a Designation..." /> 
+                        <div className="popupUserInfo1" >
+                            <button onClick={this.postComment}>Add</button>
+                        </div>                   
+                        </div>
+                        
+                    </div>
+                </Popup>
             </div>
         );
     }
