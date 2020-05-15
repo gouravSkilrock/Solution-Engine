@@ -1,8 +1,8 @@
 
 
 .searchPage {
-  background-image: url('./assests/images/search-background-1.jpg');
-  padding: 220px;
+  background-image: url('./assests/images/search-background-4.png');
+  padding: 230px;
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
@@ -50,7 +50,6 @@
 .header {
   overflow: hidden;
   background-color: #f1f1f1;
-  padding: 20px 10px;
   border: outset;
 }
 
@@ -76,6 +75,7 @@
 .header-right {
   float: right;
   width: 800px;
+  padding-top: 2%
 }
 
 .answer-header-right {

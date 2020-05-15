@@ -1,6 +1,6 @@
 import React from 'react';
 import '../App.css';
-import Logo from '../assests/images/SolutionEngine_Logo-1.jpg';
+import Logo from '../assests/images/SolutionEngine_Logo-3.jpg';
 import {Link } from "react-router-dom";
 
 class Header extends React.Component {
@@ -19,9 +19,9 @@ class Header extends React.Component {
                 <img src={Logo} alt="SE_LOGO"/>
                 </Link>
                 <a href="/" className="logo">Solution Engine</a>
-                <div className="header-right">
+                {/* <div className="header-right">
                    {this.state.isSearchBarRequired?<input className="searchBar_logo" type="text" name="search" placeholder="Search..." />:null} 
-                </div>
+                </div> */}
             </div>
 
 

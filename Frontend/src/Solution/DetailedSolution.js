@@ -3,12 +3,14 @@ import '../App.css';
 import personLogo from '../assests/images/person.png';
 import likeLogo from '../assests/images/like.png';
 import upvoteLogo from '../assests/images/upvote.png';
+import cancel from '../assests/images/cancel-32.png';
 import { Link } from "react-router-dom";
 import Logo from '../assests/images/SolutionEngine_Logo-1.jpg';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from '../Header/header';
 import Popup from "reactjs-popup";
+import Config from "../Config/config"
 
 class DetailedSolution extends React.Component {
 
@@ -68,9 +70,30 @@ class Feed extends React.Component {
     constructor(props){
         super(props)
         this.state=props.data;
+        this.state.open=false
         this.handleAnswerBox =this.handleAnswerBox.bind(this);
         this.submitAnswer = this.submitAnswer.bind(this);
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
     }
+    openModal() {
+        this.setState({ open: true });
+    }
+    closeModal() {
+        this.setState({ open: false });
+    }
+    handleDesignation(e){
+        this.setState({
+                newDesignation:e.target.value,
+        });
+    }
+
+    handleName(e){
+        this.setState({
+                newUsername:e.target.value
+        });
+    }
+
     handleAnswerBox(){
         this.setState({
             showAnswerBox:!this.state.showAnswerBox
@@ -102,6 +125,19 @@ class Feed extends React.Component {
         if (this.state.newSolution === "") {
             return toast.error("Answer can't be null");
         } else {
+            let userInfo = {};
+            if(this.state.newUsername && this.state.newUsername!==''){
+                userInfo.username = this.state.newUsername
+            }else{
+                userInfo.username = "Unknown User"
+            }
+            if(this.state.newDesignation && this.state.newDesignation!==''){
+                userInfo.designation = this.state.newDesignation
+            }else{
+                userInfo.designation = "Unknown Designation"
+            }
+
+
             let answerPayload = {
                 solution: this.state.newSolution,
                 beforeAnsDesc: this.state.newBeforeAns,
@@ -109,7 +145,8 @@ class Feed extends React.Component {
             };
             let payload = {
                 qid: this.state.questionId,
-                answer: answerPayload
+                answer: answerPayload,
+                userInfo:userInfo
             }
 
             const response = await fetch('http://localhost:3030/api/v1/nodes/engine/addAnswer', {
@@ -126,6 +163,7 @@ class Feed extends React.Component {
                     afterAnsDesc: '',
                     showAnswerBox:false,
                 });
+                this.closeModal();
             } else {
                 toast.error("Failed to add Answer!");
             }
@@ -136,6 +174,7 @@ class Feed extends React.Component {
     }
 
     render() {
+        let optionData = [];
         let AnserClusterData = [];
         let ansCount= this.state.resultSet.result.answer?this.state.resultSet.result.answer.length:0;
         return (
@@ -149,7 +188,7 @@ class Feed extends React.Component {
                     <input onChange={this.handleBeforeAns.bind(this)} placeholder="Enter before answer..."></input>
                     <textarea onChange={this.handleSolution.bind(this)} placeholder="Enter solution..." ></textarea>
                     <input onChange={this.handleAfterAns.bind(this)} placeholder="Enter after answer..."></input>
-                    <button onClick={this.submitAnswer}>Submit</button>
+                    <button onClick={this.openModal}>Submit</button>
                 </div>
                 
                 :null}
@@ -165,6 +204,27 @@ class Feed extends React.Component {
                     }):null
                 }
                 {AnserClusterData}
+                <Popup open={this.state.open} closeOnDocumentClick onClose={this.closeModal}>
+                    <div className="modal" style={{"display":"flex"}}>
+                        <div className="popupUserInfo">
+                        <a className="close" onClick={this.closeModal}>
+                            &times;
+                        </a>
+                        <input onChange={this.handleName.bind(this)} className="nameBar" type="text" name="nameBar" placeholder="Add a Name..." />
+                        <select className="desigBar" onChange={this.handleDesignation.bind(this)}>
+                            {optionData.push(<option value="Blank">--Please select--</option>)}
+                            {Config.designation.forEach(element => {
+                            optionData.push(<option value={element}>{element}</option>)
+                            })}
+                            {optionData}
+                        </select>  
+                        <div className="popupUserInfo1" >
+                            <button onClick={this.submitAnswer}>Add</button>
+                        </div>                   
+                        </div>
+                        
+                    </div>
+                </Popup>
             </div>
         );
     }
@@ -300,6 +360,7 @@ class AnserCluster extends React.Component {
 
     render() {
         let commentData=[];
+        let optionData = [];
         console.log(" Answer set : ",this.state);
         return (
             <div className="answerCluster">
@@ -340,19 +401,31 @@ class AnserCluster extends React.Component {
                     {commentData}
                 </div>
                 <Popup open={this.state.open} closeOnDocumentClick onClose={this.closeModal}>
+                
                     <div className="modal" style={{"display":"flex"}}>
+                    
                         <div className="popupUserInfo">
-                        <a className="close" onClick={this.closeModal}>
-                            &times;
-                        </a>
+                        
                         <input onChange={this.handleName.bind(this)} className="nameBar" type="text" name="nameBar" placeholder="Add a Name..." />
-                        <input onChange={this.handleDesignation.bind(this)} className="desigBar" type="text" name="desigBar" placeholder="Add a Designation..." /> 
+                        <select className="desigBar" onChange={this.handleDesignation.bind(this)}>
+                            {optionData.push(<option value="Blank">--Please select--</option>)}
+                            {Config.designation.forEach(element => {
+                            optionData.push(<option value={element}>{element}</option>)
+                            })}
+                            {optionData}
+                        </select>
                         <div className="popupUserInfo1" >
                             <button onClick={this.postComment}>Add</button>
-                        </div>                   
+                        </div> 
+                                         
                         </div>
-                        
+                        <div className="close">
+                            <a onClick={this.closeModal}>
+                                <img src={cancel} />
+                            </a>
+                         </div> 
                     </div>
+                    
                 </Popup>
             </div>
         );

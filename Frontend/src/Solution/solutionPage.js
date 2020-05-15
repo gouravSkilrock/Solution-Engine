@@ -1,7 +1,7 @@
 import React from 'react';
 import '../App.css';
 import {Link } from "react-router-dom";
-import Logo from '../assests/images/SolutionEngine_Logo-1.jpg';
+import Logo from '../assests/images/SolutionEngine_Logo-3.jpg';
 
 
 
