@@ -158,6 +158,7 @@ class Feed extends React.Component {
             if (json.result._id) {
                 toast.success(" Answer Added successfully!");
                 this.setState({
+                    resultSet:json,
                     solution: '',
                     beforeAnsDesc: '',
                     afterAnsDesc: '',
@@ -207,9 +208,6 @@ class Feed extends React.Component {
                 <Popup open={this.state.open} closeOnDocumentClick onClose={this.closeModal}>
                     <div className="modal" style={{"display":"flex"}}>
                         <div className="popupUserInfo">
-                        <a className="close" onClick={this.closeModal}>
-                            &times;
-                        </a>
                         <input onChange={this.handleName.bind(this)} className="nameBar" type="text" name="nameBar" placeholder="Add a Name..." />
                         <select className="desigBar" onChange={this.handleDesignation.bind(this)}>
                             {optionData.push(<option value="Blank">--Please select--</option>)}
@@ -222,7 +220,11 @@ class Feed extends React.Component {
                             <button onClick={this.submitAnswer}>Add</button>
                         </div>                   
                         </div>
-                        
+                        <div className="close">
+                            <a onClick={this.closeModal}>
+                                <img src={cancel} />
+                            </a>
+                         </div> 
                     </div>
                 </Popup>
             </div>
@@ -265,6 +267,9 @@ class AnserCluster extends React.Component {
         const json = await response.json();
         if (json.result._id) {
             toast.success("Upvoted");
+            this.setState({
+                upvote:json.result.upvote
+            });
         } else {
             toast.error("Failed to upvoted");
         }
@@ -285,6 +290,9 @@ class AnserCluster extends React.Component {
         const json = await response.json();
         if (json.result._id) {
             toast.success("Liked");
+            this.setState({
+                like:json.result.like
+            });
         } else {
             toast.error("Failed to like");
         }
@@ -344,6 +352,7 @@ class AnserCluster extends React.Component {
             if (json.result._id) {
                 toast.success(" Comments Added successfully!");
                 this.setState({
+                    comments:json.result.comments,
                     newComment:'',
                     newUserCommentInfo : {
                         username:'',
@@ -454,6 +463,9 @@ class CommentSet extends React.Component {
         const json = await response.json();
         if (json.result._id) {
             toast.success("Comment liked");
+            this.setState({
+                liked:json.result.liked
+            });
         } else {
             toast.error("Failed to like");
         }

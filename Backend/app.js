@@ -89,7 +89,7 @@ const functions = {
           "designation":req.body.userInfo.designation,
           "post": "Answer"
         });
-        const userInfoRes = await userInfo.save();
+        const userInfoRes  = await userInfo.save();
         //console.log("Save UserInfo", userInfoRes._id);
         const answer = Answer({
           "solution": req.body.answer.solution,
@@ -98,7 +98,7 @@ const functions = {
           "userInfo":userInfoRes._id
         });
         const answerRes = await answer.save();
-        const response = await Paper.findOneAndUpdate({ _id: req.body.qid }, { $push: { answer: answerRes._id } }).exec();
+        const response = await Paper.findOneAndUpdate({ _id: req.body.qid }, { $push: { answer: answerRes._id } },{new:true}).populate({ path: 'answer',populate: { path: 'comments',populate: { path: 'userCommentInfo' } } }).populate({ path: 'answer',populate: { path: 'userInfo' } }).exec();
         return res.status(200).json({ result: response, status: 'OK' });
       } else {
         return res.status(200).json({ result: "Record not found !!!", status: 'OK' });
@@ -138,7 +138,7 @@ const functions = {
           "userCommentInfo":userInfoRes._id
         });
         const commentsRes = await comments.save();
-        const response = await Answer.findOneAndUpdate({ _id: req.body.aid }, { $push: { comments: commentsRes._id } }).exec();
+        const response = await Answer.findOneAndUpdate({ _id: req.body.aid }, { $push: { comments: commentsRes._id } },{new:true}).populate({ path: 'comments',populate: { path: 'userCommentInfo' } } ).exec();
         return res.status(200).json({ result: response, status: 'OK' });
       } else {
         return res.status(200).json({ result: "Record not found !!!", status: 'OK' });
@@ -152,7 +152,7 @@ const functions = {
       const answerRes = await Answer.findById(req.body.aid).exec();
       log("Find By Id check ", answerRes);
       if (answerRes) {
-        const response = await Answer.findOneAndUpdate({ _id: req.body.aid }, { $inc: { "like" : 1 } }).exec();
+        const response = await Answer.findOneAndUpdate({ _id: req.body.aid }, { $inc: { "like" : 1 } },{new:true}).exec();
        // log("Response ",response);
         return res.status(200).json({ result: response, status: 'OK' });
       } else {
@@ -170,7 +170,7 @@ const functions = {
       const commentRes = await Comment.findById(req.body.cid).exec();
       log("Find By Id check ", commentRes);
       if (commentRes) {
-        const response = await Comment.findOneAndUpdate({ _id: req.body.cid }, { $inc: { "liked" : 1 } }).exec();
+        const response = await Comment.findOneAndUpdate({ _id: req.body.cid }, { $inc: { "liked" : 1 } },{new:true}).exec();
        // log("Response ",response);
         return res.status(200).json({ result: response, status: 'OK' });
       } else {
@@ -188,7 +188,7 @@ const functions = {
       log("Find By Id check ", answerRes);
       if (answerRes) {
         let upVote=req.body.upvote;
-        const response = await Answer.findOneAndUpdate({ _id: req.body.aid }, { $inc: { "upvote" : 1 } }).exec();
+        const response = await Answer.findOneAndUpdate({ _id: req.body.aid }, { $inc: { "upvote" : 1 }},{new:true}).exec();
        // log("Response ",response);
         return res.status(200).json({ result: response, status: 'OK' });
       } else {
