@@ -1,6 +1,5 @@
 import React from 'react';
 import '../App.css';
-import {Link } from "react-router-dom";
 import Header from '../Header/header';
 import {designation} from '../Config/config';
 

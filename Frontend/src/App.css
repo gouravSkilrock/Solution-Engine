@@ -2,7 +2,7 @@
 
 .searchPage {
   background-image: url('./assests/images/search-background-4.png');
-  padding: 230px;
+  padding: 252px;
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
@@ -385,7 +385,7 @@
   box-sizing: border-box;
   border: 2px solid #ccc;
   border-radius: 40px;
-  font-size: 13px;
+  font-size: 15px;
   padding: 11px 18px 12px 16px;
   width: 50%;
 }
@@ -505,4 +505,11 @@
 .quesRow button:hover {
   background-color: #4CAF50;
   color: white;
+}
+
+.close {
+  width: 23px;
+  position: absolute;
+  top: -9px;
+  right: 0px;
 }

@@ -4,8 +4,8 @@ import personLogo from '../assests/images/person.png';
 import likeLogo from '../assests/images/like.png';
 import upvoteLogo from '../assests/images/upvote.png';
 import cancel from '../assests/images/cancel-32.png';
-import { Link } from "react-router-dom";
-import Logo from '../assests/images/SolutionEngine_Logo-1.jpg';
+//import { Link } from "react-router-dom";
+//import Logo from '../assests/images/SolutionEngine_Logo-1.jpg';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from '../Header/header';
@@ -222,7 +222,7 @@ class Feed extends React.Component {
                         </div>
                         <div className="close">
                             <a onClick={this.closeModal}>
-                                <img src={cancel} />
+                                <img src={cancel} alt="Cancel-button" />
                             </a>
                          </div> 
                     </div>
@@ -397,7 +397,7 @@ class AnserCluster extends React.Component {
                     </div>
                 </div>
                 <div className="addComment">
-                    <input onChange={this.handleChangeComment.bind(this)} className="commentBar" type="text" name="commentBar" placeholder="Add a comments..." />
+                    <input onChange={this.handleChangeComment.bind(this)} className="commentBar" type="text" name="commentBar" value={this.state.newComment} placeholder="Add a comments..." />
                     
                     <button onClick={this.openModal} >Post</button>
                 </div>
@@ -411,8 +411,8 @@ class AnserCluster extends React.Component {
                 </div>
                 <Popup open={this.state.open} closeOnDocumentClick onClose={this.closeModal}>
                 
-                    <div className="modal" style={{"display":"flex"}}>
-                    
+                    <div className="modal" style={{"display":"flex"}}> 
+
                         <div className="popupUserInfo">
                         
                         <input onChange={this.handleName.bind(this)} className="nameBar" type="text" name="nameBar" placeholder="Add a Name..." />
@@ -425,14 +425,17 @@ class AnserCluster extends React.Component {
                         </select>
                         <div className="popupUserInfo1" >
                             <button onClick={this.postComment}>Add</button>
+                            {/* <button onClick={this.closeModal}>Cancel</button> */}
                         </div> 
-                                         
+                                     
                         </div>
+
                         <div className="close">
                             <a onClick={this.closeModal}>
-                                <img src={cancel} />
+                                <img src={cancel} alt="cancel-button" />
                             </a>
-                         </div> 
+                         </div>
+
                     </div>
                     
                 </Popup>

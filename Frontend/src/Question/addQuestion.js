@@ -1,6 +1,6 @@
 import React from 'react';
 import '../App.css';
-import {Link } from "react-router-dom";
+//import {Link } from "react-router-dom";
 import Header from '../Header/header';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -48,21 +48,21 @@ class Question extends React.Component {
             payload.question=this.state.question;
         }
 
-        if(this.state.solution!='' || this.state.solution === undefined ){
+        if(this.state.solution!=='' || this.state.solution === undefined ){
             answerJson.solution = this.state.solution;
         }
-        if(this.state.beforeAnsDesc!='' || this.state.beforeAnsDesc === undefined ){
+        if(this.state.beforeAnsDesc!=='' || this.state.beforeAnsDesc === undefined ){
             answerJson.beforeAnsDesc =  this.state.beforeAnsDesc;
         }
-        if(this.state.afterAnsDesc!='' || this.state.afterAnsDesc === undefined ){
+        if(this.state.afterAnsDesc!=='' || this.state.afterAnsDesc === undefined ){
             answerJson.afterAnsDesc =  this.state.afterAnsDesc;
         }
-        if(this.state.username!='' || this.state.username === undefined ){
+        if(this.state.username!=='' || this.state.username === undefined ){
             userJson.username =  this.state.username;
         }else{
             userJson.username =  "Unknown User";
         }
-        if(this.state.designation!='' || this.state.designation !== undefined || this.state.designation === 'Blank' ){
+        if(this.state.designation!=='' || this.state.designation !== undefined || this.state.designation === 'Blank' ){
             userJson.designation =  this.state.designation;
         }else{
             userJson.designation =  "Unknown Designation";
