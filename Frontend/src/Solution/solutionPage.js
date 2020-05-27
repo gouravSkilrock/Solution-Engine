@@ -2,7 +2,7 @@ import React from 'react';
 import '../App.css';
 import {Link } from "react-router-dom";
 import Logo from '../assests/images/SolutionEngine_Logo-3.jpg';
-
+import Header from '../Header/header';
 
 
 class SolutionPage extends React.Component {
@@ -10,13 +10,14 @@ class SolutionPage extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            searchId : this.props.match.params.searchId
+            searchId : this.props.match.params.searchId,
+            loginData:props.location.loginData
         }
     }
         render() {
            return  (
                 <div>
-                    <Header />
+                    <Header/>
                     <SolutionCluster data={this.state} />
                 </div>
             );
@@ -90,27 +91,6 @@ class SolutionSet extends React.Component {
                     </div>
         );
     }
-}
-
-class Header extends React.Component {
-
-    render() {
-        return (
-
-            <div className="header">
-                <Link to="/">
-                <img src={Logo} alt="SE_LOGO"/>
-                </Link>
-                <a href="/" className="logo">Solution Engine</a>
-                <div className="header-right">
-                    <input className="searchBar_logo" type="text" name="search" placeholder="Search..." />
-                </div>
-            </div>
-
-
-        );
-    }
-
 }
 
 export default SolutionPage;

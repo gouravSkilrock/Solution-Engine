@@ -71,13 +71,19 @@ class Feed extends React.Component {
         super(props)
         this.state=props.data;
         this.state.open=false
+        this.state.loginData = JSON.parse(localStorage.getItem('loginData'))
         this.handleAnswerBox =this.handleAnswerBox.bind(this);
         this.submitAnswer = this.submitAnswer.bind(this);
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
     }
     openModal() {
-        this.setState({ open: true });
+        if(this.state.loginData!==undefined){
+            this.submitAnswer();
+        }else{
+            this.setState({ open: true });    
+        }
+        
     }
     closeModal() {
         this.setState({ open: false });
@@ -126,15 +132,29 @@ class Feed extends React.Component {
             return toast.error("Answer can't be null");
         } else {
             let userInfo = {};
-            if(this.state.newUsername && this.state.newUsername!==''){
-                userInfo.username = this.state.newUsername
+           
+            if(this.state.loginData!==undefined){
+                if(this.state.loginData.name && this.state.loginData.name!==''){
+                    userInfo.username = this.state.loginData.name
+                }else{
+                    userInfo.username = "Unknown User"
+                }
+                if(this.state.loginData.designation && this.state.loginData.designation!==''){
+                    userInfo.designation = this.state.loginData.designation
+                }else{
+                    userInfo.designation = "Unknown Designation"
+                }
             }else{
-                userInfo.username = "Unknown User"
-            }
-            if(this.state.newDesignation && this.state.newDesignation!==''){
-                userInfo.designation = this.state.newDesignation
-            }else{
-                userInfo.designation = "Unknown Designation"
+                if(this.state.newUsername && this.state.newUsername!==''){
+                    userInfo.username = this.state.newUsername
+                }else{
+                    userInfo.username = "Unknown User"
+                }
+                if(this.state.newDesignation && this.state.newDesignation!==''){
+                    userInfo.designation = this.state.newDesignation
+                }else{
+                    userInfo.designation = "Unknown Designation"
+                }
             }
 
 
@@ -239,6 +259,7 @@ class AnserCluster extends React.Component {
         this.state=props.answerData
         this.state.questionData=props.questionData
         this.state.open=false
+        this.state.loginData = JSON.parse(localStorage.getItem('loginData'))
 
         this.postComment =this.postComment.bind(this);
         this.handleUpVote = this.handleUpVote.bind(this);
@@ -248,7 +269,11 @@ class AnserCluster extends React.Component {
     }
 
     openModal() {
-        this.setState({ open: true });
+        if(this.state.loginData!==undefined){
+            this.postComment();
+        }else{
+            this.setState({ open: true });    
+        }
     }
     closeModal() {
         this.setState({ open: false });
@@ -323,17 +348,35 @@ class AnserCluster extends React.Component {
         }else{
             
             let userCommentInfo = {};
-            if(this.state.newUsername && this.state.newUsername!==''){
-                userCommentInfo.username = this.state.newUsername
-            }else{
-                userCommentInfo.username = "Unknown User"
-            }
-            if(this.state.newDesignation && this.state.newDesignation!==''){
-                userCommentInfo.designation = this.state.newDesignation
-            }else{
-                userCommentInfo.designation = "Unknown Designation"
-            }
+            
+            if (this.state.loginData !== undefined) {
 
+                if (this.state.loginData.name && this.state.loginData.name !== '') {
+                    userCommentInfo.username = this.state.loginData.name
+                } else {
+                    userCommentInfo.username = "Unknown User"
+                }
+                if (this.state.loginData.designation && this.state.loginData.designation !== '') {
+                    userCommentInfo.designation = this.state.loginData.designation
+                } else {
+                    userCommentInfo.designation = "Unknown Designation"
+                }
+
+            } else {
+
+                if (this.state.newUsername && this.state.newUsername !== '') {
+                    userCommentInfo.username = this.state.newUsername
+                } else {
+                    userCommentInfo.username = "Unknown User"
+                }
+                if (this.state.newDesignation && this.state.newDesignation !== '') {
+                    userCommentInfo.designation = this.state.newDesignation
+                } else {
+                    userCommentInfo.designation = "Unknown Designation"
+                }
+
+            }
+            
             let commentPayload = {
                 'title':this.state.newComment,
                 'userCommentInfo':userCommentInfo

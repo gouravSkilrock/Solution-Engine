@@ -75,8 +75,16 @@
 
 .header-right {
   float: right;
-  width: 800px;
-  padding-top: 2%
+  width: 12%;
+}
+.header-right img{
+  width: 30%;
+  padding: 20px 0px 0px 20px;
+}
+
+.header-logout{
+    position: absolute;
+    width: 75px;
 }
 
 .answer-header-right {

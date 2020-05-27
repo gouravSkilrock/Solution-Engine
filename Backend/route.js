@@ -3,6 +3,8 @@ const app = require('./app.js');
 const Route = express.Router();
 const basePath = '/v1/nodes';
 
+Route.post(basePath+'/engine/signUpUser',app.signUpUser);
+Route.get(basePath+'/engine/login',app.login);
 Route.post(basePath+'/engine/addQuestion',app.addQuestion);
 Route.get(basePath+'/engine/fetchAllQuestion',app.fetchAllQuestion);
 Route.post(basePath+'/engine/addAnswer',app.addAnswer);

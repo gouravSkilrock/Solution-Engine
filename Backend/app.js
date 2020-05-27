@@ -4,6 +4,7 @@ const Paper = require('./model/paper');
 const Answer = require('./model/answer');
 const Comment = require('./model/comments');
 const UserInfo = require('./model/userInfo');
+const Users = require('./model/users');
 
 const functions = {
 
@@ -212,6 +213,57 @@ const functions = {
     } catch (err) {
       log(err.message);
       res.status(404).send(await handleError(err));
+    }
+  },
+  async signUpUser(req,res){
+
+    try{
+      let usersRes = '';
+      let usersId = '';
+      if(req.body && req.body.name && req.body.designation && req.body.name!=undefined && req.body.designation!=undefined){
+        
+      if(req.body && req.body.username!=undefined){
+        usersId = await Users.find({username:req.body.username}).exec();
+        log(usersId);
+        if(usersId.length==0){
+          let usersData = Users({
+            username:req.body.username,
+            name:req.body.name,
+            designation:req.body.designation
+          });
+          usersRes = await usersData.save();
+          return res.status(200).json({ result: usersRes, status: 'OK' });
+        }else{
+          return res.status(404).json({ result: "Username exist!", status: 'error' });
+        }
+      }else{
+        return res.status(404).json({ result: "Bad Request", status: 'error' });
+      }
+      }else{
+        return res.status(404).json({ result: "Bad Request", status: 'error' });
+      }
+    }catch (err) {
+      log(err.message);
+      res.status(403).send(await handleError(err));
+    }
+  },
+  async login(req,res){
+    //let usersRes = '';
+    let usersId = '';
+    try{
+      if(req.query.username && req.query.username!=undefined){
+        usersId = await Users.find({username:req.query.username}).exec();
+        if(usersId.length!=0){
+          return res.status(200).json({ result: usersId, status: 'OK' });
+        }else{
+          return res.status(401).json({ result: "Username not exist!", status: 'error' });
+        }
+      }else{
+        return res.status(404).json({ result: "Bad Request", status: 'error' });
+      }
+    }catch (err) {
+      log(err.message);
+      res.status(403).send(await handleError(err));
     }
   }
 

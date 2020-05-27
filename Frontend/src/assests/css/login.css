@@ -1,0 +1,65 @@
+.login_username, .login_name {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  
+  /* Set a style for all buttons */
+  .login_submit {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .login_submit:hover {
+    opacity: 0.8;
+  }
+  
+  /* Center the image and position the close button */
+  .imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+  }
+  
+  img.avatar {
+    width: 40%;
+    border-radius: 50%;
+  }
+  
+  .login_container {
+    padding: 16px;
+  }
+  
+  /* The Modal (background) */
+  .login-modal {
+    margin: 60px 1px 0px 500px;
+    display: block;
+    position: fixed;
+    z-index: 1;
+    /* left: 0; */
+    /* top: 0; */
+    width: 30%;
+    height: -4%;
+    /* overflow: auto; */
+    background-color: rgb(0,0,0);
+    background-color:rgba(201, 195, 195, 0.4);
+    padding-top: 60px;
+  }
+  
+  .login_designation{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 15px;
+  }

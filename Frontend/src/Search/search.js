@@ -7,13 +7,12 @@ import Header from '../Header/header';
 
 class Search extends React.Component {
 
-  state = {
-    search: ''
-  }
-
   constructor(props) {
     super(props);
-
+    this.state = {
+      search: '',
+      loginData:props.location.loginData
+    }
     this.handleSearch = this.handleSearch.bind(this);
   }
 
@@ -37,16 +36,20 @@ class Search extends React.Component {
           <ToastContainer position={toast.POSITION.TOP_RIGHT} />
           <input className="searchBar" type="text" name="search" onChange={this.getSearchValue.bind(this)} placeholder="Search..." />
           <div className="searchButtonDiv">
-            <Link to={`/searchSolution/${this.state.search}`}>
+            <Link to={{pathname:`/searchSolution/${this.state.search}`,loginData:this.state.loginData}}>
               <button className="searchButton" onClick={this.handleSearch}>Search</button>
             </Link>
 
-            <Link to={`/addQuestion`}>
+            <Link to={{pathname:`/addQuestion`,loginData:this.state.loginData}}>
               <button className="searchButton">Add Question</button>
             </Link>
 
-            <Link to={`/questionList`}>
+            <Link to={{pathname:`/questionList`,loginData:this.state.loginData}}>
               <button className="searchButton">Add Answer</button>
+            </Link>
+
+            <Link to={{pathname:`/userWiseReport`,loginData:this.state.loginData}}>
+              <button className="searchButton">User Wise Reports</button>
             </Link>
 
 
