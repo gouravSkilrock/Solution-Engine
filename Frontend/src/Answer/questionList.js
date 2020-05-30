@@ -2,6 +2,9 @@ import React from 'react';
 import '../App.css';
 import {Link } from "react-router-dom";
 import Header from '../Header/header';
+import solvedTag from '../assests/images/solved.png';
+import unsolvedTag from '../assests/images/unsolved.png';
+
 
 class QuestionList extends React.Component {
 
@@ -82,7 +85,9 @@ class SolutionSet extends React.Component {
         return (
             <div className="solutionSet">
                         <Link to={`/detailedSolution/${this.props.innerData._id}`}>
-                            <div className="solutionTitle">{this.props.innerData.question}</div>
+                            <div className="solutionTitle">{this.props.innerData.question}
+                            {this.props.innerData.answer.length>0? <img src={solvedTag} style={{width: "5%"}} alt="solved-answer"/>: <img src={unsolvedTag} style={{width: "5%"}} alt="unsolved-answer"/>}
+                            </div>
                         </Link>
                     </div>
         );

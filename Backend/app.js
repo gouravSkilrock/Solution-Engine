@@ -19,42 +19,56 @@ const functions = {
       let commentRes = '';
       let userInfo = '';
       let userInfoRes = '';
-      if(req.body.answer[0] && req.body.answer[0].comments){
-         comments = Comment({
-          "title": req.body.answer[0].comments[0].title,
-          "liked": req.body.answer[0].comments[0].liked
-        });
-         commentRes = await comments.save();
+
+      if(req.body.question && req.body.question!=undefined){
+        if(req.body.answer && req.body.answer[0] && req.body.answer[0].comments){
+          if(req.body.answer[0] && req.body.answer[0].comments){
+            comments = Comment({
+             "title": req.body.answer[0].comments[0].title,
+             "liked": req.body.answer[0].comments[0].liked
+           });
+            commentRes = await comments.save();
+         }
+         if(req.body.answer[0] && req.body.answer[0].userInfo){
+           userInfo = UserInfo({
+            "username": req.body.answer[0].userInfo.username,
+            "designation": req.body.answer[0].userInfo.designation,
+            "post": "Answer"
+          });
+           userInfoRes = await userInfo.save();
+        }
+         let answer = Answer({
+           "solution": req.body.answer[0].solution,
+           "beforeAnsDesc": req.body.answer[0].beforeAnsDesc,
+           "afterAnsDesc": req.body.answer[0].afterAnsDesc,
+           "upvote": req.body.answer[0].upvote,
+           "comments": commentRes._id,
+           "userInfo":userInfoRes._id
+         });
+         let answerRes = await answer.save();
+         let paper = Paper({
+           "question": req.body.question,
+           "afterDesc": req.body.afterDesc,
+           "beforeDesc": req.body.beforeDesc,
+           "viewed": req.body.viewed,
+           "answer": answerRes._id
+         });
+         let paperRes = await paper.save();
+   
+         log("After save");
+         return res.status(200).json({ result: paperRes, status: 'OK' });
+   
+        }else{
+          let paper = Paper({
+            "question": req.body.question
+          });
+          let paperRes = await paper.save();
+          return res.status(200).json({ result: paperRes, status: 'OK' });
+        }
+      }else{
+        return res.status(404).json({ result: "Question can't be null", status: 'Error' });
       }
-      if(req.body.answer[0] && req.body.answer[0].userInfo){
-        userInfo = UserInfo({
-         "username": req.body.answer[0].userInfo.username,
-         "designation": req.body.answer[0].userInfo.designation,
-         "post": "Answer"
-       });
-        userInfoRes = await userInfo.save();
-     }
-      let answer = Answer({
-        "solution": req.body.answer[0].solution,
-        "beforeAnsDesc": req.body.answer[0].beforeAnsDesc,
-        "afterAnsDesc": req.body.answer[0].afterAnsDesc,
-        "upvote": req.body.answer[0].upvote,
-        "comments": commentRes._id,
-        "userInfo":userInfoRes._id
-      });
-      let answerRes = await answer.save();
-      let paper = Paper({
-        "question": req.body.question,
-        "afterDesc": req.body.afterDesc,
-        "beforeDesc": req.body.beforeDesc,
-        "viewed": req.body.viewed,
-        "answer": answerRes._id
-      });
-      let paperRes = await paper.save();
-
-      log("After save");
-      return res.status(200).json({ result: paperRes, status: 'OK' });
-
+      
 
     } catch (err) {
       log("Inside catch");

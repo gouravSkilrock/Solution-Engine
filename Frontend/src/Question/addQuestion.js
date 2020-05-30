@@ -38,6 +38,7 @@ class Question extends React.Component {
         }
         this.showAnswerWindow = this.showAnswerWindow.bind(this);
         this.submitQuestion = this.submitQuestion.bind(this);
+        this._handleKeyDown = this._handleKeyDown.bind(this);
     }
 
     submitQuestion() {
@@ -155,6 +156,11 @@ class Question extends React.Component {
         });
     }
 
+    _handleKeyDown(e){
+        if (e.key === 'Enter') {
+            this.submitQuestion();
+        }
+    }
 
     render() {
         let optionData = [];
@@ -163,7 +169,7 @@ class Question extends React.Component {
                 <div className="quesFormHeader"> Add Question </div>
                 <div className="quesRow" >
                     <label>Question</label>
-                    <input type="text" value={this.state.question} id="question" onChange={this.handleQuestion.bind(this)} className="quesName" placeholder="Enter your question.." />
+                    <input type="text" value={this.state.question} id="question" onChange={this.handleQuestion.bind(this)} className="quesName" placeholder="Enter your question.." onKeyPress={this._handleKeyDown} />
                 </div>
                 {this.state.showAnswertab ? <a href="#" onClick={this.showAnswerWindow}>Hide?</a> : <a href="#" onClick={this.showAnswerWindow}>Click, If you know the answer?</a>}
                 {this.state.showAnswertab ?

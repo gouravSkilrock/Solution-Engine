@@ -3,6 +3,8 @@ import '../assests/css/login.css';
 import Config from '../Config/config';
 import personLogo from '../assests/images/person.png';
 import { Redirect } from 'react-router';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class Login extends React.Component {
     constructor(props) {
@@ -13,9 +15,11 @@ class Login extends React.Component {
             loginName:'',
             loginDesignation:'',
             loginData:'',
-            redirect:false
+            redirect:false,
+            isEnterkeyPress:false
         }
     }
+    
     render() {
         return (
             <div>
@@ -35,6 +39,7 @@ class LoginComponant extends React.Component {
         this.handleDesignation = this.handleDesignation.bind(this);
         this.userSingUp = this.userSingUp.bind(this);
         this.letslogin = this.letslogin.bind(this);
+        this._handleKeyDown = this._handleKeyDown.bind(this);
 
     }
     handleDesignation(e) {
@@ -76,7 +81,7 @@ class LoginComponant extends React.Component {
                 
                 //alert("Login Successfull");
             } else {
-                alert(json.result);
+                toast.error(json.result);
             }
         }
     }
@@ -103,11 +108,31 @@ class LoginComponant extends React.Component {
                 });
                 //alert("SignUp Successfull");
             } else {
-                alert(json.result);
+                toast.error(json.result);
             }
         }
     }
 
+    _handleKeyDown(e){
+        if (e.key === 'Enter') {
+            if(this.state.signup){
+                if(this.state.loginUsername==="" && this.state.loginName==="" && this.state.loginDesignation===""){
+                    toast.error("Username, Name, Designation fields are mandatory");
+                 }else{
+                    this.userSingUp()
+                 }
+            }else{
+                if(this.state.loginUsername===""){
+                    toast.error("Username field can't be empty!");
+                 }else{
+                    this.letslogin()
+                 }
+            }
+          
+        }else{
+
+        }
+      }
     render() {
         let optionData = [];
         if (this.state.redirect) {
@@ -115,7 +140,7 @@ class LoginComponant extends React.Component {
         }
         return (
             <div>
-
+                 <ToastContainer position={toast.POSITION.TOP_RIGHT} />
                 <div id="id01" className="login-modal">
                     <div>
                         <div className="imgcontainer">
@@ -123,14 +148,14 @@ class LoginComponant extends React.Component {
                         </div>
                         <div className="login_container">
                             <label><b>Username</b></label>
-                            <input type="text" className="login_username" onChange={this.getUserName.bind(this)} placeholder="Enter your username" name="uname" required />
+                            <input type="text" className="login_username" onChange={this.getUserName.bind(this)} placeholder="Enter your username" name="uname" onKeyPress={this._handleKeyDown} />
                             
                             {this.state.signup?<a href="#" onClick={this.showSignupWindow}>Hide?</a>:<a href="#" onClick={this.showSignupWindow}>SignUp?</a>}
                             {this.state.signup ?
 
                                 <div>
                                     <label><b>Your Name</b></label>
-                                    <input type="text" className="login_name" onChange={this.getDisplayName.bind(this)} placeholder="Enter your name" name="name" required />
+                                    <input type="text" className="login_name" onChange={this.getDisplayName.bind(this)} placeholder="Enter your name" name="name" onKeyPress={this._handleKeyDown} />
                                     <label ><b>Your Designation</b></label>
                                     <select className="login_designation" onChange={this.handleDesignation.bind(this)}>
                                         {optionData.push(<option value="Blank">--Please select--</option>)}

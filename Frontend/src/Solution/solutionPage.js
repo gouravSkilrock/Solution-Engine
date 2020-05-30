@@ -3,6 +3,7 @@ import '../App.css';
 import {Link } from "react-router-dom";
 import Logo from '../assests/images/SolutionEngine_Logo-3.jpg';
 import Header from '../Header/header';
+import blankResponse from '../assests/images/sad-smily.png'
 
 
 class SolutionPage extends React.Component {
@@ -49,9 +50,9 @@ class SolutionCluster extends React.Component {
         let SolutionSetData = [];
         return (
             <div className="solutionCluster">
-                {data?data.forEach(element => {
+                {data && data.length!=0?data.forEach(element => {
                     SolutionSetData.push(<SolutionSet innerData={element} />) 
-                }):null}    
+                }):<BlankResponse/>}    
             {SolutionSetData}
 
             </div>
@@ -80,7 +81,9 @@ class SolutionSet extends React.Component {
                         {
                             (this.state.innerData.answer)?
                             this.state.innerData.answer.forEach(element => {
-                                solutionDescData.push(<div className="solutionDesc">{element.beforeAnsDesc}</div> )
+                                if(solutionDescData.length<3){
+                                    solutionDescData.push(<div className="solutionDesc">{element.beforeAnsDesc}</div> )
+                                }
                             })
                             :null
                         }
@@ -90,6 +93,15 @@ class SolutionSet extends React.Component {
                         </Link>
                     </div>
         );
+    }
+}
+
+class BlankResponse extends React.Component {
+    render(){
+        return (<div>
+            <img src={blankResponse} style={{width:"3%"}} alt="blank-response" />
+           <label> No Records found!</label>
+        </div>);
     }
 }
 

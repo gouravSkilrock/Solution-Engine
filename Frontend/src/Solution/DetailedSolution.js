@@ -76,6 +76,7 @@ class Feed extends React.Component {
         this.submitAnswer = this.submitAnswer.bind(this);
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this._handleKeyDown = this._handleKeyDown.bind(this);
     }
     openModal() {
         if(this.state.loginData!==undefined){
@@ -193,6 +194,11 @@ class Feed extends React.Component {
 
         }
     }
+    _handleKeyDown(e){
+        if (e.key === 'Enter') {
+            this.submitAnswer();
+        }
+    }
 
     render() {
         let optionData = [];
@@ -206,9 +212,9 @@ class Feed extends React.Component {
                 {this.state.showAnswerBox?
                 
                 <div className="feedAddAnswerBox">
-                    <input onChange={this.handleBeforeAns.bind(this)} placeholder="Enter before answer..."></input>
-                    <textarea onChange={this.handleSolution.bind(this)} placeholder="Enter solution..." ></textarea>
-                    <input onChange={this.handleAfterAns.bind(this)} placeholder="Enter after answer..."></input>
+                    <input onChange={this.handleBeforeAns.bind(this)} placeholder="Enter before answer..." onKeyPress={this._handleKeyDown}></input>
+                    <textarea onChange={this.handleSolution.bind(this)} placeholder="Enter solution..." onKeyPress={this._handleKeyDown}></textarea>
+                    <input onChange={this.handleAfterAns.bind(this)} placeholder="Enter after answer..." onKeyPress={this._handleKeyDown}></input>
                     <button onClick={this.openModal}>Submit</button>
                 </div>
                 
@@ -266,6 +272,7 @@ class AnserCluster extends React.Component {
         this.handleAnswerLike = this.handleAnswerLike.bind(this);
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this._handleKeyDown = this._handleKeyDown.bind(this);
     }
 
     openModal() {
@@ -410,6 +417,11 @@ class AnserCluster extends React.Component {
         }
     }
 
+    _handleKeyDown(e){
+        if (e.key === 'Enter') {
+            this.postComment();
+        }
+    }
     render() {
         let commentData=[];
         let optionData = [];
@@ -440,7 +452,7 @@ class AnserCluster extends React.Component {
                     </div>
                 </div>
                 <div className="addComment">
-                    <input onChange={this.handleChangeComment.bind(this)} className="commentBar" type="text" name="commentBar" value={this.state.newComment} placeholder="Add a comments..." />
+                    <input onChange={this.handleChangeComment.bind(this)} className="commentBar" type="text" name="commentBar" value={this.state.newComment} placeholder="Add a comments..." onKeyPress={this._handleKeyDown} />
                     
                     <button onClick={this.openModal} >Post</button>
                 </div>
