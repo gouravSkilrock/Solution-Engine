@@ -4,7 +4,9 @@ import {Link } from "react-router-dom";
 import Header from '../Header/header';
 import solvedTag from '../assests/images/solved.png';
 import unsolvedTag from '../assests/images/unsolved.png';
+import Config from '../Config/config';
 
+let baseUrl = Config.protocol+"://"+Config.host+":"+Config.port;
 
 class QuestionList extends React.Component {
 
@@ -35,13 +37,13 @@ class SolutionCluster extends React.Component {
         this.fetchData();
     }
     fetchData = async () => {
-        await fetch('http://localhost:3030/api/v1/nodes/engine/search')
+        await fetch(baseUrl+''+Config.search)
             .then(response => response.json())
             .then(json => this.setState({ searchResult:json})) 
     };
 
     async filterQuestionList(event){
-        await fetch('http://localhost:3030/api/v1/nodes/engine/search?name='+event.target.value)
+        await fetch(baseUrl+''+Config.search+'?name='+event.target.value)
             .then(response => response.json())
             .then(json => this.setState({ searchResult:json}))
     }

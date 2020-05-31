@@ -5,6 +5,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from '../Header/header';
 import { Redirect } from 'react-router';
+import Config from '../Config/config';
+
+let baseUrl = Config.protocol+"://"+Config.host+":"+Config.port;
 
 class Search extends React.Component {
 

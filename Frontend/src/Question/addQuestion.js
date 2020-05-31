@@ -6,6 +6,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Config from '../Config/config';
 
+let baseUrl = Config.protocol+"://"+Config.host+":"+Config.port;
+
 
 class AddQuestion extends React.Component {
     constructor(props) {
@@ -93,7 +95,7 @@ class Question extends React.Component {
         this.addQuestionToDatabase(payload);
     }
     async addQuestionToDatabase(payload) {
-        const response = await fetch('http://localhost:3030/api/v1/nodes/engine/addQuestion', {
+        const response = await fetch(baseUrl+''+Config.addQuestion, {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)

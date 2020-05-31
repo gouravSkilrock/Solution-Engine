@@ -6,6 +6,8 @@ import { Redirect } from 'react-router';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+let baseUrl = Config.protocol+"://"+Config.host+":"+Config.port; 
+
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -65,7 +67,7 @@ class LoginComponant extends React.Component {
     async letslogin() {
         
         if (this.state.loginUsername && this.state.loginUsername !== undefined) {
-            const response = await fetch('http://localhost:3030/api/v1/nodes/engine/login?username=' + this.state.loginUsername, {
+            const response = await fetch(baseUrl+""+Config.login+'?username=' + this.state.loginUsername, {
                 method: 'get',
                 headers: { 'Content-Type': 'application/json' }
                 //body: JSON.stringify(payload)
@@ -93,7 +95,7 @@ class LoginComponant extends React.Component {
                 name:this.state.loginName,
                 designation:this.state.loginDesignation
             }
-            const response = await fetch('http://localhost:3030/api/v1/nodes/engine/signUpUser', {
+            const response = await fetch(baseUrl+""+Config.signUpUser, {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)

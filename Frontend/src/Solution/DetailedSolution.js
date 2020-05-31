@@ -10,7 +10,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from '../Header/header';
 import Popup from "reactjs-popup";
-import Config from "../Config/config"
+import Config from '../Config/config';
+
+let baseUrl = Config.protocol+"://"+Config.host+":"+Config.port;
 
 class DetailedSolution extends React.Component {
 
@@ -33,7 +35,7 @@ class DetailedSolution extends React.Component {
         this.fetchQuestionData();
     }
     fetchQuestionData= async () => {
-        fetch('http://localhost:3030/api/v1/nodes/engine/getAllQuestionRelatedData/'+this.state.questionId)
+        fetch(baseUrl+''+Config.getAllQuestionRelatedData+'/'+this.state.questionId)
             .then(response => response.json())
             .then(json => this.setState({ resultSet:json}))
     }
@@ -170,7 +172,7 @@ class Feed extends React.Component {
                 userInfo:userInfo
             }
 
-            const response = await fetch('http://localhost:3030/api/v1/nodes/engine/addAnswer', {
+            const response = await fetch(baseUrl+''+Config.addAnwser, {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -291,7 +293,7 @@ class AnserCluster extends React.Component {
             aid:this.state._id
         }
 
-        const response = await fetch('http://localhost:3030/api/v1/nodes/engine/upvoteAnswer', {
+        const response = await fetch(baseUrl+''+Config.upvoteAnswer, {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -314,7 +316,7 @@ class AnserCluster extends React.Component {
             aid:this.state._id
         }
 
-        const response = await fetch('http://localhost:3030/api/v1/nodes/engine/addlike', {
+        const response = await fetch(baseUrl+''+Config.addlike, {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -393,7 +395,7 @@ class AnserCluster extends React.Component {
                 comments:commentPayload
             }
 
-            const response = await fetch('http://localhost:3030/api/v1/nodes/engine/addComment', {
+            const response = await fetch(baseUrl+''+Config.addComment, {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -513,7 +515,7 @@ class CommentSet extends React.Component {
             cid:this.state._id
         }
 
-        const response = await fetch('http://localhost:3030/api/v1/nodes/engine/addCommentLike', {
+        const response = await fetch(baseUrl+''+Config.addCommentLike, {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)

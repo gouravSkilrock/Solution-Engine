@@ -4,7 +4,9 @@ import {Link } from "react-router-dom";
 import Logo from '../assests/images/SolutionEngine_Logo-3.jpg';
 import Header from '../Header/header';
 import blankResponse from '../assests/images/sad-smily.png'
+import Config from '../Config/config';
 
+let baseUrl = Config.protocol+"://"+Config.host+":"+Config.port;
 
 class SolutionPage extends React.Component {
              
@@ -39,7 +41,7 @@ class SolutionCluster extends React.Component {
         this.fetchData();
     }
     fetchData = async () => {
-        fetch('http://localhost:3030/api/v1/nodes/engine/search?name='+this.props.data.searchId)
+        fetch(baseUrl+''+Config.search+'?name='+this.props.data.searchId)
             .then(response => response.json())
             .then(json => this.setState({ searchResult:json}))
     };
