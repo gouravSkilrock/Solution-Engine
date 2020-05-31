@@ -3,8 +3,10 @@ const Route = require('./route.js');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const app = express();
+const Config = require('./Config');
 
-const port = 3030;
+const port = Config.port;
+
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
@@ -20,7 +22,7 @@ app.use(bodyParser.json());
 app.use('/api', Route)
 
 
-mongoose.connect('mongodb://localhost:27017/SolutionEngine', {
+mongoose.connect(Config.db.url, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

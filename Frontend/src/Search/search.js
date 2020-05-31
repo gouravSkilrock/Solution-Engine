@@ -71,9 +71,9 @@ class Search extends React.Component {
               <button className="searchButton">Add Answer</button>
             </Link>
 
-            <Link to={{pathname:`/userWiseReport`,loginData:this.state.loginData}}>
+            {/* <Link to={{pathname:`/userWiseReport`,loginData:this.state.loginData}}>
               <button className="searchButton">User Wise Reports</button>
-            </Link>
+            </Link> */}
 
 
 

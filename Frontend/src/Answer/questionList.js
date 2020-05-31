@@ -28,8 +28,13 @@ class SolutionCluster extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            searchResult:''
+            searchResult:'',
+            flag:'All',
+            solvedCss:'',
+            unsolvedCss:'',
+            allCss:'solutionFilterItemClicked'
         }
+        this.handleButtonFilter =this.handleButtonFilter.bind(this);
         
     }
     componentWillMount(){
@@ -47,7 +52,31 @@ class SolutionCluster extends React.Component {
             .then(response => response.json())
             .then(json => this.setState({ searchResult:json}))
     }
-
+    handleButtonFilter(e){
+        //alert(e.target.name)
+        if(e.target.name=='All'){
+            this.setState({
+                flag:e.target.name,
+                allCss:"solutionFilterItemClicked",
+                solvedCss:'',
+                unsolvedCss:''
+            });
+        }else if(e.target.name=='Solved'){
+            this.setState({
+                flag:e.target.name,
+                allCss:"",
+                solvedCss:'solutionFilterItemClicked',
+                unsolvedCss:''
+            });
+        }else if(e.target.name=='Unsolved'){
+            this.setState({
+                flag:e.target.name,
+                allCss:"",
+                solvedCss:'',
+                unsolvedCss:'solutionFilterItemClicked'
+            });
+        }
+    }
     render() {
         let data = this.state.searchResult.result;
         let SolutionSetData = [];
@@ -56,10 +85,28 @@ class SolutionCluster extends React.Component {
                 <div className="answer-header-right" onChange={this.filterQuestionList.bind(this)}>
                             <input className="searchBar_logo" type="text" name="search" placeholder="Search..." />
                 </div>
-
+                
                 <div className="solutionCluster">
+                <div className="solutionFilterMenu">
+                    <label className="solutionFilterTitle">Filter :</label>
+                    <div className="solutionFilterList">
+                        <button className={"solutionFilterItem"+" "+this.state.allCss} name="All" onClick={this.handleButtonFilter}>All</button>
+                        <button className={"solutionFilterItem"+" "+this.state.solvedCss} name="Solved" onClick={this.handleButtonFilter}>Solved</button>
+                        <button className={"solutionFilterItem"+" "+this.state.unsolvedCss} name="Unsolved" onClick={this.handleButtonFilter}>Unsolved</button>
+                    </div>
+                </div>
                 {data?data.forEach(element => {
-                    SolutionSetData.push(<SolutionSet innerData={element} />) 
+                    if(this.state.flag=='All'){
+                        SolutionSetData.push(<SolutionSet innerData={element} flag={this.state.flag} />) 
+                    }else if(this.state.flag=='Solved'){
+                        if(element.answer.length>0){
+                            SolutionSetData.push(<SolutionSet innerData={element} flag={this.state.flag} />)
+                        } 
+                    }else if(this.state.flag=='Unsolved'){
+                        if(element.answer.length==0){
+                            SolutionSetData.push(<SolutionSet innerData={element} flag={this.state.flag} />) 
+                        }
+                    }
                 }):"No result found!"}    
                 {SolutionSetData}
 
@@ -78,11 +125,13 @@ class SolutionSet extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            innerData:props.innerData
+            innerData:props.innerData,
+            flag:props.flag
         }
 
     }
     render() {
+        
         console.log("Inner Data -",this.props);
         return (
             <div className="solutionSet">

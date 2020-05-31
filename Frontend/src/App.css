@@ -140,7 +140,7 @@
 }
 
 .solutionTitle{
-   font-size: 25px;
+   font-size: 18px;
     font-family: monospace;
     font: bold;
     color: #2323c2;
@@ -155,7 +155,7 @@
 }
 
 .solutionDesc{
-  font-size: 19px;
+  font-size: 15px;
     font-family: initial;
     color: #2a9541;
 }
@@ -291,6 +291,7 @@
   background: #f1f1f1;
 }
 .feedAnswerMain{
+  white-space: pre-wrap;
   padding-top: 30px;
   padding-bottom: 30px;
 }
@@ -426,6 +427,7 @@
 .commentDesc{
   background: #edeeef;
   padding: 10px;
+  white-space: pre-wrap;
 }
 
 .commentLikeLogo img{
@@ -520,4 +522,29 @@
   position: absolute;
   top: -9px;
   right: 0px;
+}
+.solutionFilterMenu{
+  display: block;
+}
+.solutionFilterTitle{
+  font-size: 18px;
+}
+.solutionFilterList{
+  display: inline-flex;
+  margin-bottom: 25px;
+    padding-left: 15px;
+  
+}
+.solutionFilterItem{
+  background-color: #e8eae6; /* Green */
+  border: none;
+  color: #9e9898;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  padding: 9px 30px;
+}
+.solutionFilterItemClicked{
+  color: #f1f1f1;
+  background-color: #4caf50;
 }

@@ -215,7 +215,7 @@ class Feed extends React.Component {
                 
                 <div className="feedAddAnswerBox">
                     <input onChange={this.handleBeforeAns.bind(this)} placeholder="Enter before answer..." onKeyPress={this._handleKeyDown}></input>
-                    <textarea onChange={this.handleSolution.bind(this)} placeholder="Enter solution..." onKeyPress={this._handleKeyDown}></textarea>
+                    <textarea onChange={this.handleSolution.bind(this)} placeholder="Enter solution..." ></textarea>
                     <input onChange={this.handleAfterAns.bind(this)} placeholder="Enter after answer..." onKeyPress={this._handleKeyDown}></input>
                     <button onClick={this.openModal}>Submit</button>
                 </div>
@@ -454,7 +454,7 @@ class AnserCluster extends React.Component {
                     </div>
                 </div>
                 <div className="addComment">
-                    <input onChange={this.handleChangeComment.bind(this)} className="commentBar" type="text" name="commentBar" value={this.state.newComment} placeholder="Add a comments..." onKeyPress={this._handleKeyDown} />
+                    <input onChange={this.handleChangeComment.bind(this)} className="commentBar" type="textarea" name="commentBar" value={this.state.newComment} placeholder="Add a comments..." onKeyPress={this._handleKeyDown} />
                     
                     <button onClick={this.openModal} >Post</button>
                 </div>
