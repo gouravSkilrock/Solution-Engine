@@ -4,6 +4,8 @@ import {Link } from "react-router-dom";
 import Logo from '../assests/images/SolutionEngine_Logo-3.jpg';
 import Header from '../Header/header';
 import blankResponse from '../assests/images/sad-smily.png'
+import Moment from 'react-moment';
+import 'moment-timezone';
 import Config from '../Config/config';
 
 let baseUrl = Config.protocol+"://"+Config.host+":"+Config.port;
@@ -91,8 +93,9 @@ class SolutionSet extends React.Component {
                         }
                         {solutionDescData}
                         <Link to={`/detailedSolution/${this.state.innerData._id}`}>
-                            <div className="solutionMore">(more...)</div>
+                            <div className="solutionMore">(more...)<span style={{float:"Right",fontSize:"10px",color:"grey"}}><Moment format="D MMM YY" withTitle date={this.props.innerData.created_at} /> at <Moment format="hh:mm a" withTitle date={this.props.innerData.created_at} /></span></div>
                         </Link>
+                        
                     </div>
         );
     }

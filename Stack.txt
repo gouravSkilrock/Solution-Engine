@@ -1,0 +1,26 @@
+frontend
+ - React Js - ver 16
+ - React WebPack - npx is used
+ - webservice - port 3000 + Incremental
+ - hooks used for state management
+  
+backend
+ - Node Js - ver 10.16.x
+ - Mongo DB
+ - Mongoose client
+--------------------------------------------------------------------
+
+Chatbot AI capability
+internal try run
+slack /knowledge aggregation
+automated JIRA tickets - 
+
+DATA Feed ( Automate + Put AI )
+
+Solution : How validate content of ur solutions
+
+Slack Integrations : notifying to yhr right groups in slack
+
+Any org - NOT necessarily MCMP
+
+practical usage : within integrations team

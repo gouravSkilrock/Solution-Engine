@@ -5,6 +5,9 @@ import Header from '../Header/header';
 import solvedTag from '../assests/images/solved.png';
 import unsolvedTag from '../assests/images/unsolved.png';
 import Config from '../Config/config';
+import Translation from '../Translation/en';
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 let baseUrl = Config.protocol+"://"+Config.host+":"+Config.port;
 
@@ -88,11 +91,11 @@ class SolutionCluster extends React.Component {
                 
                 <div className="solutionCluster">
                 <div className="solutionFilterMenu">
-                    <label className="solutionFilterTitle">Filter :</label>
+                    <label className="solutionFilterTitle">{Translation.filter} :</label>
                     <div className="solutionFilterList">
-                        <button className={"solutionFilterItem"+" "+this.state.allCss} name="All" onClick={this.handleButtonFilter}>All</button>
-                        <button className={"solutionFilterItem"+" "+this.state.solvedCss} name="Solved" onClick={this.handleButtonFilter}>Solved</button>
-                        <button className={"solutionFilterItem"+" "+this.state.unsolvedCss} name="Unsolved" onClick={this.handleButtonFilter}>Unsolved</button>
+                        <button className={"solutionFilterItem"+" "+this.state.allCss} name="All" onClick={this.handleButtonFilter}>{Translation.all}</button>
+                        <button className={"solutionFilterItem"+" "+this.state.solvedCss} name="Solved" onClick={this.handleButtonFilter}>{Translation.solved}</button>
+                        <button className={"solutionFilterItem"+" "+this.state.unsolvedCss} name="Unsolved" onClick={this.handleButtonFilter}>{Translation.unsolved}</button>
                     </div>
                 </div>
                 {data?data.forEach(element => {
@@ -139,6 +142,7 @@ class SolutionSet extends React.Component {
                             <div className="solutionTitle">{this.props.innerData.question}
                             {this.props.innerData.answer.length>0? <img src={solvedTag} style={{width: "5%"}} alt="solved-answer"/>: <img src={unsolvedTag} style={{width: "5%"}} alt="unsolved-answer"/>}
                             </div>
+                            <span style={{float:"Right",fontSize:"10px",color:"grey"}}><Moment format="D MMM YY" withTitle date={this.props.innerData.created_at} /> at <Moment format="hh:mm a" withTitle date={this.props.innerData.created_at} /></span>
                         </Link>
                     </div>
         );

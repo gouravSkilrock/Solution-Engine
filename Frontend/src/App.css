@@ -417,6 +417,10 @@
   font-size: 13px;
   padding-bottom: 10px;
   display: -webkit-inline-flex;
+  width: 100%;
+}
+.commentUserName{
+  width: 100%;
 }
 
 .commentLike{
@@ -547,4 +551,10 @@
 .solutionFilterItemClicked{
   color: #f1f1f1;
   background-color: #4caf50;
+}
+
+.feedViews{
+  font-size: 15px;
+  color: gray;
+  font-family: inherit;
 }

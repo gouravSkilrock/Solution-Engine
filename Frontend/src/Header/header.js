@@ -5,6 +5,7 @@ import {Link } from "react-router-dom";
 import personLogo from '../assests/images/person.png';
 import logoutImage from '../assests/images/logout-1.png';
 import { Redirect } from 'react-router';
+import Translation from '../Translation/en';
 
 class Header extends React.Component {
 
@@ -34,7 +35,7 @@ class Header extends React.Component {
                 <Link to="/search">
                 <img src={Logo} alt="SE_LOGO"/>
                 </Link>
-                <a href="/search" className="logo">Solution Engine</a>
+                    <a href="/search" className="logo">{Translation.projectTitle}</a>
                 <div className="header-right">
                   <img src={personLogo} alt="Person Logo"    /><img src={logoutImage} onClick={this.logoutUser} style={{position:"absolute",width:"75px"}} alt="logout image" /> 
                   <div><label>{this.state.loginData.name}</label> </div> 

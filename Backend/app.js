@@ -87,8 +87,15 @@ const functions = {
   },
   async getAllQuestionRelatedData(req, res){
     try{
-      const paperRes = await Paper.findById(req.params.id).populate({ path: 'answer',populate: { path: 'comments',populate: { path: 'userCommentInfo' } } }).populate({ path: 'answer',populate: { path: 'userInfo' } }).exec();
-      return res.status(200).json({ result:paperRes, status: 'OK' });
+
+      const paperRes = await Paper.findById(req.params.id).exec();
+      //log("Find By Id check ", paperRes);
+      if (paperRes) {
+        const paperResponse = await Paper.findOneAndUpdate({ _id: req.params.id }, { $inc: { "viewed" : 1 } },{new:true}).populate({ path: 'answer',populate: { path: 'comments',populate: { path: 'userCommentInfo' } } }).populate({ path: 'answer',populate: { path: 'userInfo' } }).exec();
+        return res.status(200).json({ result:paperResponse, status: 'OK' });
+      }else{
+        return res.status(200).json({ result: "Record not found !!!", status: 'OK' });
+      }
     }catch (err) {
       res.status(404).send(await handleError(err));
     }

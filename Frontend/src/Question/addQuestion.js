@@ -5,6 +5,7 @@ import Header from '../Header/header';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Config from '../Config/config';
+import Translation from '../Translation/en';
 
 let baseUrl = Config.protocol+"://"+Config.host+":"+Config.port;
 
@@ -168,44 +169,44 @@ class Question extends React.Component {
         let optionData = [];
         return (
             <div className="questionForm">
-                <div className="quesFormHeader"> Add Question </div>
+                <div className="quesFormHeader">{Translation.questiontitle}</div>
                 <div className="quesRow" >
-                    <label>Question</label>
-                    <input type="text" value={this.state.question} id="question" onChange={this.handleQuestion.bind(this)} className="quesName" placeholder="Enter your question.." onKeyPress={this._handleKeyDown} />
+                    <label>{Translation.question}</label>
+                    <input type="text" value={this.state.question} id="question" onChange={this.handleQuestion.bind(this)} className="quesName" placeholder={Translation.placeholderQuestion} onKeyPress={this._handleKeyDown} />
                 </div>
-                {this.state.showAnswertab ? <a href="#" onClick={this.showAnswerWindow}>Hide?</a> : <a href="#" onClick={this.showAnswerWindow}>Click, If you know the answer?</a>}
+                {this.state.showAnswertab ? <a href="#" onClick={this.showAnswerWindow}>Hide?</a> : <a href="#" onClick={this.showAnswerWindow}>{Translation.knowAnswer}</a>}
                 {this.state.showAnswertab ?
                     <div>
 
                         <div className="quesRow" >
-                            <label>Before Solution Description</label>
-                            <input type="text" id="beforeAnsDesc" onChange={this.handleBeforeAnsDesc.bind(this)} className="beforeAnsDesc" placeholder="Enter your..." />
+                            <label>{Translation.beforeAnsDesc}</label>
+                            <input type="text" id="beforeAnsDesc" onChange={this.handleBeforeAnsDesc.bind(this)} className="beforeAnsDesc" placeholder={Translation.placeholderBeforeSolution} />
                         </div>
 
 
                         <div className="quesRow" >
-                            <label>Solution</label>
-                            <textarea rows="15" cols="50" id="actualSolution" onChange={this.handleSolution.bind(this)} className="actualSolution" placeholder="Enter your solution..." />
+                            <label>{Translation.solution}</label>
+                            <textarea rows="15" cols="50" id="actualSolution" onChange={this.handleSolution.bind(this)} className="actualSolution" placeholder={Translation.placeholderSolution} />
                         </div>
 
                         <div className="quesRow" >
-                            <label>After Solution Description</label>
-                            <input type="text" id="afterAnsDesc" className="afterAnsDesc" onChange={this.handleAfterAnsDesc.bind(this)} placeholder="Enter your..." />
+                            <label>{Translation.afterAnsDesc}</label>
+                            <input type="text" id="afterAnsDesc" className="afterAnsDesc" onChange={this.handleAfterAnsDesc.bind(this)} placeholder={Translation.placeholderAfterSolution} />
                         </div>
                         {this.state.loginData===undefined ?
 
                             <div>
 
                                 <div className="quesRow" >
-                                    <label>Enter your Name</label>
-                                    <input type="text" id="username" className="username" onChange={this.handleUsername.bind(this)} placeholder="Enter your Name..." />
+                                    <label>{Translation.displayName}</label>
+                                    <input type="text" id="username" className="username" onChange={this.handleUsername.bind(this)} placeholder={Translation.placeholderDisplayName} />
 
                                 </div>
 
                                 <div className="quesRow" >
-                                    <label>Your Designation</label>
+                                    <label>{Translation.designation}</label>
                                     <select onChange={this.handleDesignation.bind(this)}>
-                                        {optionData.push(<option value="Blank">--Please select--</option>)}
+                                        {optionData.push(<option value="Blank">{Translation.placeholderDefaultDesignationText}</option>)}
                                         {Config.designation.forEach(element => {
                                             optionData.push(<option value={element}>{element}</option>)
                                         })}
@@ -225,7 +226,7 @@ class Question extends React.Component {
 
 
                 <div className="quesRow" >
-                    <button onClick={this.submitQuestion} className="submitQuestion">Submit</button>
+                    <button onClick={this.submitQuestion} className="submitQuestion">{Translation.submit}</button>
                 </div>
 
             </div>

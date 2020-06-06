@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Header from '../Header/header';
 import { Redirect } from 'react-router';
 import Config from '../Config/config';
+import Translation from '../Translation/en';
 
 let baseUrl = Config.protocol+"://"+Config.host+":"+Config.port;
 
@@ -64,11 +65,11 @@ class Search extends React.Component {
               <button className="searchButton" onClick={this.handleSearch}>Search</button>
 
             <Link to={{pathname:`/addQuestion`,loginData:this.state.loginData}}>
-              <button className="searchButton">Add Question</button>
+              <button className="searchButton">{Translation.addQuestion}</button>
             </Link>
 
             <Link to={{pathname:`/questionList`,loginData:this.state.loginData}}>
-              <button className="searchButton">Add Answer</button>
+              <button className="searchButton">{Translation.addAnswer}</button>
             </Link>
 
             {/* <Link to={{pathname:`/userWiseReport`,loginData:this.state.loginData}}>

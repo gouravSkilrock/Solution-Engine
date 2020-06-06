@@ -11,6 +11,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import Header from '../Header/header';
 import Popup from "reactjs-popup";
 import Config from '../Config/config';
+import Translation from '../Translation/en';
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 let baseUrl = Config.protocol+"://"+Config.host+":"+Config.port;
 
@@ -208,8 +211,11 @@ class Feed extends React.Component {
         let ansCount= this.state.resultSet.result.answer?this.state.resultSet.result.answer.length:0;
         return (
             <div className="feed">
-                <div className="feedQuestion">{this.state.resultSet.result.question}</div>
-                <div className="feedAddAnswer" onClick={this.handleAnswerBox}> Add Answer </div>
+                <div className="feedQuestion">{this.state.resultSet.result.question}
+                    <div className="feedViews"><span style={{padding:"0px 5px 0px 0px"}}><Moment format="D MMM YY" withTitle date={this.state.resultSet.result.created_at} /> at <Moment format="hh:mm a" withTitle date={this.state.resultSet.result.created_at} /></span><span style={{padding:"0px 5px 0px 0px"}}>|</span><span style={{padding:"0px 5px 0px 0px"}}>{this.state.resultSet.result.viewed>999?(this.state.resultSet.result.viewed/1000).toFixed(1)+'k':this.state.resultSet.result.viewed}</span><label>{Translation.views}</label></div>
+                </div>
+
+                <div className="feedAddAnswer" onClick={this.handleAnswerBox}>{Translation.addAnswer}</div>
                 
                 {this.state.showAnswerBox?
                 
@@ -435,7 +441,7 @@ class AnserCluster extends React.Component {
                     <div className="userName">{this.state.userInfo?this.state.userInfo.username:"Unknown User"},</div>
                     <div className="userDesignation">{this.state.userInfo?this.state.userInfo.designation:"Unknown Designation"}</div>
                 </div>
-                <div className="userPostDate">{this.state.created_at} </div>
+                <div className="userPostDate"><Moment format="D MMM YY" withTitle date={this.state.created_at} /> at <Moment format="hh:mm a" withTitle date={this.state.created_at} /></div>
                 <div className="feedAnswer">
                     <div className="feedAnswerBefore">{this.state.beforeAnsDesc}</div>
                     <div className="feedAnswerMain">{this.state.solution}</div>
@@ -538,7 +544,7 @@ class CommentSet extends React.Component {
                         <div className="commentUserDetails">
 
                             <div className="commentUserLogo"><img src={personLogo} alt="Person" /></div>
-                        <div className="commentUserName">{this.state.userCommentInfo?this.state.userCommentInfo.username:"Unknown User"}, {this.state.userCommentInfo?this.state.userCommentInfo.designation:"Unknown Designation"}</div>
+                        <div className="commentUserName">{this.state.userCommentInfo?this.state.userCommentInfo.username:"Unknown User"}, {this.state.userCommentInfo?this.state.userCommentInfo.designation:"Unknown Designation"} <span style={{float:"Right"}}><Moment format="D MMM YY" withTitle date={this.state.created_at} /> at <Moment format="hh:mm a" withTitle date={this.state.created_at} /></span></div>
                         </div>
                         <div className="commentDesc">{this.state.title}</div>
                         <div className="commentLike">
