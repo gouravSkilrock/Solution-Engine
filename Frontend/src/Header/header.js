@@ -6,6 +6,7 @@ import personLogo from '../assests/images/person.png';
 import logoutImage from '../assests/images/logout-1.png';
 import { Redirect } from 'react-router';
 import Translation from '../Translation/en';
+import bell_Icon from '../assests/images/bell-icon.png';
 
 class Header extends React.Component {
 
@@ -13,7 +14,7 @@ class Header extends React.Component {
         super(props);
         this.state = props;
         this.state = {
-            loginData: JSON.parse(localStorage.getItem('loginData')),
+            loginData: localStorage.getItem('loginData')!==""?JSON.parse(localStorage.getItem('loginData')):"",
             redirect:false
         }
         this.logoutUser = this.logoutUser.bind(this);
@@ -35,10 +36,17 @@ class Header extends React.Component {
                 <Link to="/search">
                 <img src={Logo} alt="SE_LOGO"/>
                 </Link>
-                    <a href="/search" className="logo">{Translation.projectTitle}</a>
+                    <a href="/search" className="logo">{Translation.projectTitle}</a>    
                 <div className="header-right">
                   <img src={personLogo} alt="Person Logo"    /><img src={logoutImage} onClick={this.logoutUser} style={{position:"absolute",width:"75px"}} alt="logout image" /> 
-                  <div><label>{this.state.loginData.name}</label> </div> 
+                  {this.state.loginData!==""?<div><label>{this.state.loginData.name}</label> </div>:<div><label>Unknown User</label> </div>} 
+                </div>
+                <div style={{display:"inline-flex",float:"right",padding:"25px 15px 0px 0px"}}>
+                    <a href="#" class="notification">
+                        {/* <span>Inbox</span> */}
+                        <img src={bell_Icon} style={{width:"25px",height:"25px"}} alt="bell-icon" />
+                        <span class="badge">3</span>
+                    </a>
                 </div>
             </div>
 

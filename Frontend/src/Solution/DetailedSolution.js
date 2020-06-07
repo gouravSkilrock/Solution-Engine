@@ -76,7 +76,7 @@ class Feed extends React.Component {
         super(props)
         this.state=props.data;
         this.state.open=false
-        this.state.loginData = JSON.parse(localStorage.getItem('loginData'))
+        this.state.loginData = localStorage.getItem('loginData')!==""?JSON.parse(localStorage.getItem('loginData')):""
         this.handleAnswerBox =this.handleAnswerBox.bind(this);
         this.submitAnswer = this.submitAnswer.bind(this);
         this.openModal = this.openModal.bind(this);
@@ -201,8 +201,13 @@ class Feed extends React.Component {
     }
     _handleKeyDown(e){
         if (e.key === 'Enter') {
-            this.submitAnswer();
+            if(this.state.loginData!=""){
+                this.submitAnswer(); 
+            }else{
+                this.setState({ open: true });    
+            }
         }
+        
     }
 
     render() {
@@ -273,7 +278,7 @@ class AnserCluster extends React.Component {
         this.state=props.answerData
         this.state.questionData=props.questionData
         this.state.open=false
-        this.state.loginData = JSON.parse(localStorage.getItem('loginData'))
+        this.state.loginData = localStorage.getItem('loginData')!==""?JSON.parse(localStorage.getItem('loginData')):""
 
         this.postComment =this.postComment.bind(this);
         this.handleUpVote = this.handleUpVote.bind(this);
@@ -427,7 +432,11 @@ class AnserCluster extends React.Component {
 
     _handleKeyDown(e){
         if (e.key === 'Enter') {
-            this.postComment();
+            if(this.state.loginData!=""){
+                this.postComment(); 
+            }else{
+                this.setState({ open: true });    
+            }
         }
     }
     render() {

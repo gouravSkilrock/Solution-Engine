@@ -37,7 +37,7 @@ class Question extends React.Component {
             solution: '',
             username: '',
             designation: '',
-            loginData: JSON.parse(localStorage.getItem('loginData'))
+            loginData: localStorage.getItem('loginData')!==""?JSON.parse(localStorage.getItem('loginData')):undefined
         }
         this.showAnswerWindow = this.showAnswerWindow.bind(this);
         this.submitQuestion = this.submitQuestion.bind(this);
@@ -54,9 +54,12 @@ class Question extends React.Component {
         } else {
             payload.question = this.state.question;
         }
-
+        if(this.state.showAnswertab){
+            
         if (this.state.solution !== '' || this.state.solution === undefined) {
             answerJson.solution = this.state.solution;
+        }else{
+            return toast.error("Solution field can't be null!");
         }
         if (this.state.beforeAnsDesc !== '' || this.state.beforeAnsDesc === undefined) {
             answerJson.beforeAnsDesc = this.state.beforeAnsDesc;
@@ -90,7 +93,7 @@ class Question extends React.Component {
         answerJson['userInfo'] = userJson;
         answerArr.push(answerJson);
         payload.answer = answerArr;
-
+        }
         console.log("Final payload", payload);
 
         this.addQuestionToDatabase(payload);

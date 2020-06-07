@@ -42,6 +42,7 @@ class LoginComponant extends React.Component {
         this.userSingUp = this.userSingUp.bind(this);
         this.letslogin = this.letslogin.bind(this);
         this._handleKeyDown = this._handleKeyDown.bind(this);
+        this.userLoginSkip = this.userLoginSkip.bind(this);
 
     }
     handleDesignation(e) {
@@ -135,6 +136,11 @@ class LoginComponant extends React.Component {
 
         }
       }
+      userLoginSkip(){
+          this.setState({
+              redirect:true
+          });
+      }
     render() {
         let optionData = [];
         if (this.state.redirect) {
@@ -171,7 +177,7 @@ class LoginComponant extends React.Component {
 
                                 : null}
                                 {this.state.signup ?<button onClick={this.userSingUp} className="login_submit">SignUp & Login</button>:<button  onClick={this.letslogin} className="login_submit">Login</button>}
-                            
+                                <button onClick={this.userLoginSkip} className="login_submit">Skip>></button>
 
                         </div>
                     </div>

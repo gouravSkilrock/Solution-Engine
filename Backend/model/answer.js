@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 
 const AnswerSchema = new Schema(
     {
-        solution:{ type: String, required: [true, 'question required'] },
+        solution:{ type: String, required: [true, 'Solution required'] },
         beforeAnsDesc:{ type: String},       
         afterAnsDesc:{ type: String},
         upvote:{ type: Number},

@@ -21,7 +21,7 @@ const functions = {
       let userInfoRes = '';
 
       if(req.body.question && req.body.question!=undefined){
-        if(req.body.answer && req.body.answer[0] && req.body.answer[0].comments){
+        if(req.body.answer && req.body.answer.length!=0){
           if(req.body.answer[0] && req.body.answer[0].comments){
             comments = Comment({
              "title": req.body.answer[0].comments[0].title,
@@ -71,7 +71,7 @@ const functions = {
       
 
     } catch (err) {
-      log("Inside catch");
+      log("Inside catch",err);
       return res.status(404).send(await handleError(err));
     }
 

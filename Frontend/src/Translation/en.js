@@ -1,5 +1,5 @@
 module.exports = {
-    projectTitle:'Developer Community',
+    projectTitle:'Ngage Developer Community',
     addQuestion:'Create Issue',
     addAnswer:'Add Solution',
     questiontitle:'Create Issue',
