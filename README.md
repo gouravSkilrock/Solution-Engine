@@ -22,47 +22,55 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 Builds the app for production to the `build` folder.<br />
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### `Installation Steps`
 
-### `npm run eject`
+Pre-requisite: 
+1. Node js 
+2. React js
+3. Mongo DB
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# Installation of pre-requisite
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Node js : As per your OS preference
+  > https://nodejs.org/en/download/
+2. Mongo DB : Install mongo based on your OS Preference
+  > https://www.mongodb.com/try/download/community
+3. React Js : This is automatically install while setup the frontend.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+# Configuration: 
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. Mongo DB : only for linux 
+   For linux : go to the conf file and set IP to "0.0.0.0" for connecting the mongo server from any other server.
+   
+2. Backend: 
+   > Go to config.js file inside the Backend folder.
+   > Set the Database, Client & PORT
+3. Frontend:
+   Customization:
+   Go to 'config.js' file inside the Frontend folder. You can change the Project Title, Header's & Various function's name according to your preference.
+   
 
-## Learn More
+# 'How to start a Application'
+1. There are two folder 
+ > Frontend : This contains all UI code of the project
+ > Backend : This contains all server side implemenation which interact with mongoDB for all operations happened in the UI.
+ 
+2. Lets One by one:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+  # Backend:
+  > Go inside Backend directory
+  > run below command to install all npm's repository
+    - npm install
+  > Once sucessfully runs above command, we can run the backend by running below command:
+    - node index.js
+  # Frontend
+  > Go inside Frontend directory
+  > run below command to install all npm's repository
+    - npm install
+  > Once sucessfully runs above command, we can run the Frontend by running below command:
+    - npm start
+    
+    
+    
+ 
