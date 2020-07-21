@@ -71,6 +71,7 @@ Pre-requisite:
   > Once sucessfully runs above command, we can run the Frontend by running below command:
     - npm start
     
-    
+ 3. Application hosted url:
+    http://172.25.26.5:3000 (if 3000 port is already in use then it take it increament a 1 and create new port as 3001, Same it will continues till it got a free port on the machine)
     
  
